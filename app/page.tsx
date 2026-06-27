@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Horolith",
 };
 
-const SHOWCASE_CARD = SEED_CARDS[0];
+const SHOWCASE_CARD = SEED_CARDS.find((c) => c.name === "Astrum Suprema")!;
 
 export default function HomePage() {
   return (
