@@ -1,23 +1,48 @@
 /*
- * Canon types — populated from the Horolith original bible.
- * NEVER invent HouseId values or rarity names here.
- * Ask for the canon content before filling these in.
+ * Canon types — sourced exclusively from Horolith Canon Bible Tome I.
+ * Do not invent values. If a value is missing, stop and ask.
  */
 
-export type HouseId = string; // will be a union of 10 literal IDs once canon is imported
+export type HouseId =
+  "valther" | "orvain" | "belvor" | "caelis" | "merian" | "ferrand" | "aurell" | "corven";
 
-export type RarityId = string; // will be a union of 5 literal IDs once canon is imported
+export type RarityId =
+  "ebauche" | "emergence" | "maitrise" | "virtuosite" | "grande-oeuvre" | "opus-aeternum";
 
 export type DialStyle =
-  "soleille" | "guilloche" | "email" | "squelette" | "fume" | "lacque";
+  | "soleille"
+  | "guilloche"
+  | "email"
+  | "squelette"
+  | "fume"
+  | "lacque"
+  | "aventurine"
+  | "nacre"
+  | "pierre";
+
+export type Architecture =
+  | "lineaire"
+  | "radiale"
+  | "concentrique"
+  | "suspendue"
+  | "squelettee"
+  | "sonore"
+  | "chronometrique"
+  | "energetique"
+  | "orbitale"
+  | "hybride";
 
 export type Card = {
   id: string;
-  ref: string; // e.g. "Réf. HRL-1931"
+  ref: string;
   house: HouseId;
   rarity: RarityId;
   name: string;
-  complication?: string;
+  project: string;
+  calibre: string;
+  architecture: Architecture;
+  ih: number;
+  complications: string[];
   dial: DialStyle;
   serial: number;
   lore: string;
@@ -31,19 +56,20 @@ export type Card = {
 export type House = {
   id: HouseId;
   name: string;
-  signature: {
-    color: string;
-    material: string;
-  };
+  philosophy: string;
+  firstPrinciple: string;
   specialty: string;
+  materials: string[];
+  architectures: Architecture[];
+  signatureComplications: string[];
+  rivalry: HouseId;
   lore: string;
 };
 
 export type Rarity = {
   id: RarityId;
   name: string;
-  tier: 1 | 2 | 3 | 4 | 5;
-  material: string;
-  baseRate: number;
+  tier: 1 | 2 | 3 | 4 | 5 | 6;
   lumeActive: boolean;
+  foilActive: boolean;
 };

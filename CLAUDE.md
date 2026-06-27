@@ -10,7 +10,7 @@
 Tu es le lead engineer ET le directeur artistique de Horolith. Règles non négociables :
 
 1. **Tu construis par phases** (voir §14). Tu ne passes JAMAIS à la phase suivante tant que la Definition of Done de la phase courante n'est pas remplie. À la fin de chaque phase, tu t'arrêtes, tu fais un récap, et tu attends mon feu vert.
-2. **Zéro fait inventé.** Les noms des 10 Maisons, le lore, les 5 raretés, les taux et les valeurs de pity viennent EXCLUSIVEMENT de la bible Horolith canon (le `CLAUDE.md` de l'app React Native d'origine). Si tu n'as pas ce contenu sous la main, **arrête-toi et demande-le-moi** avant de générer la moindre donnée de carte. N'invente aucun nom de Maison ni aucune référence.
+2. **Zéro fait inventé.** Les noms des 8 Maisons, le lore, les 6 niveaux de création, les taux et les valeurs de pity viennent EXCLUSIVEMENT de la bible Horolith canon (Tome I). Si tu n'as pas ce contenu sous la main, **arrête-toi et demande-le-moi** avant de générer la moindre donnée de carte. N'invente aucun nom de Maison ni aucune référence.
 3. **La barre, c'est le premium.** Si un écran ressemble à un template Tailwind par défaut, c'est un bug, pas une étape intermédiaire acceptable. Voir §13 (anti-patterns) et §15 (barre qualité).
 4. **Tu critiques ton propre travail.** À chaque écran livré : screenshot mental, qu'est-ce qui trahit l'IA, qu'est-ce que je retire. La règle Chanel : avant de livrer, enlève un accessoire.
 5. **Tu écris du TypeScript strict, testé sur la logique de jeu.** Le moteur gacha n'a pas le droit d'être faux.
@@ -22,7 +22,7 @@ Tu es le lead engineer ET le directeur artistique de Horolith. Règles non négo
 
 Horolith est un **jeu de cartes à collectionner (CCG / gacha)** sur le thème de la **haute horlogerie fictive**, jouable dans le navigateur. Inspiration de boucle : Pokémon TCG Pocket. Inspiration de _feel_ : ouvrir un fond de boîte saphir et voir un mouvement s'animer.
 
-Le joueur ouvre des **packs**, collectionne des **cartes-montres** issues de **10 Maisons horlogères fictives**, complète sa **collection**, et revient chaque jour pour la dose. Le cœur émotionnel n'est pas la stratégie : **c'est le rituel d'ouverture.** Tout le reste sert ce moment.
+Le joueur ouvre des **packs**, collectionne des **cartes-montres** issues de **8 Maisons horlogères fictives**, complète sa **collection**, et revient chaque jour pour la dose. Le cœur émotionnel n'est pas la stratégie : **c'est le rituel d'ouverture.** Tout le reste sert ce moment.
 
 **Pourquoi le web :** rendu 3D/animation premium beaucoup plus fiable qu'en React Native, distribution sans store, itération rapide, partage par simple URL.
 
@@ -123,13 +123,15 @@ Règle : **`src/game` ne dépend jamais de React ni du DOM.**
 
 ## 6. Systèmes de jeu
 
-### 6.1 Les 10 Maisons — ⚠️ PORTÉ DU CANON
+### 6.1 Les 8 Maisons — Canon confirmé
 
-N'invente rien. Si tu ne les as pas : **demande-les avant de coder `src/game/canon`.**
+Valther · Orvain · Belvor · Caelis · Merian · Ferrand · Aurell · Corven  
+Détails complets dans `src/game/canon/houses.ts`. N'invente aucun nom supplémentaire.
 
-### 6.2 Raretés (5 paliers) — ⚠️ PORTÉ DU CANON
+### 6.2 Les 6 Niveaux de Création — Canon confirmé
 
-Reprends les 5 paliers canon avec leurs noms exacts.
+Ébauche → Émergence → Maîtrise → Virtuosité → Grande Œuvre → Opus Aeternum  
+Détails dans `src/game/canon/rarities.ts`. Les taux de drop gacha seront définis en Phase 3.
 
 ### 6.3 Carte — modèle de données
 
@@ -261,3 +263,90 @@ Avant de déclarer une phase finie :
 - La matière horlogère est-elle présente ?
 - Le texte aide-t-il vraiment à naviguer ?
 - 60 fps, focus clavier visible, reduced-motion respecté ?
+
+---
+
+## 16. Règles d'ingénierie supplémentaires (obligatoires)
+
+### 16.1 Le canon est la source de vérité
+
+`src/game/canon` est la seule source de vérité pour : les 8 Maisons, le lore, les 6 niveaux de création, les taux de drop, les valeurs de pity, les monnaies, les références de cartes, toute donnée métier.
+
+Si ce dossier n'existe pas ou est incomplet : **STOP immédiatement.** Ne crée aucun mock, placeholder, valeur temporaire ou TODO. Demande le contenu manquant avant de continuer. **Le projet ne doit jamais compiler avec un canon inventé.**
+
+### 16.2 Documentation des décisions d'architecture (ADR)
+
+Toute décision d'architecture non imposée explicitement par cette bible est documentée dans `docs/adr/`. Chaque ADR expose : le problème, les solutions envisagées, le choix retenu, pourquoi les autres options ont été écartées.
+
+```
+docs/adr/ADR-001-gsap.md
+docs/adr/ADR-002-zustand.md
+docs/adr/ADR-003-collection-repository.md
+```
+
+### 16.3 Taille maximale des composants
+
+Aucun composant React ne dépasse **300 lignes.** Au-delà : extraire des hooks, des composants, des utilitaires, découper les responsabilités. Même règle pour les hooks et utilitaires : une responsabilité claire par fichier.
+
+### 16.4 Logique métier pure
+
+Tout le moteur de jeu (`src/game`) est constitué de fonctions pures. Interdits : `Date.now()`, `Math.random()`, `localStorage`, Zustand, React, DOM, accès réseau. Toute dépendance externe est injectée. Le moteur doit être déterministe, seedable, entièrement testable.
+
+### 16.5 Responsive
+
+Approche **desktop first.** Ne jamais supprimer une fonctionnalité sur mobile — le layout est repensé, jamais compressé. Toutes les interactions importantes fonctionnent : souris, tactile, clavier.
+
+### 16.6 Organisation des shaders
+
+Tous les shaders vivent exclusivement dans `src/render/shaders/`. Un shader = un fichier. Aucun GLSL inline dans les composants React. Paramètres exposés proprement via les matériaux.
+
+### 16.7 Budget des assets
+
+- GLB < 700 Ko si possible ; aucun asset > 2 Mo sans justification
+- Textures KTX2 obligatoires
+- Lazy loading systématique, aucune ressource chargée inutilement au démarrage
+- Chaque asset important documente : poids, draw calls, optimisation appliquée
+
+### 16.8 Rythme émotionnel du pack-opening
+
+La tension est **monotone croissante.** Chaque étape augmente légèrement l'attente. Aucune animation ne casse la montée émotionnelle avant la révélation. Le silence est un outil de design. Le climax est réservé aux très hautes raretés.
+
+### 16.9 Anatomie d'une carte
+
+Chaque carte possède une construction cohérente : verre saphir, bordure, cadran, signature de la Maison, référence, complication, numéro de série, traitement matière selon la rareté, masque foil, holographie, ombres, profondeur. La composition reste identique pour construire une identité visuelle forte.
+
+### 16.10 Direction de la landing
+
+La landing ne vend pas un jeu — **elle vend un univers.** Références d'intention : Apple (sobriété), Aesop (matière), haute horlogerie (précision). Jamais une esthétique free-to-play ou e-sport. Le visiteur doit avoir l'impression d'entrer dans une manufacture.
+
+### 16.11 Revue obligatoire à chaque phase
+
+Avant de considérer une phase terminée, fournir :
+
+- capture desktop + capture mobile
+- justification UX
+- autocritique
+- liste des défauts restants
+- prochaines améliorations envisagées
+
+Aucune phase n'est terminée sans cette revue.
+
+### 16.12 Priorité à la maintenabilité
+
+Quand plusieurs implémentations sont possibles : ne jamais choisir la plus rapide à coder. Choisir celle qui restera lisible, extensible et maintenable dans un an. La qualité du code prime sur la vitesse de développement.
+
+### 16.13 Les effets doivent être physiques
+
+Tout effet visuel est justifié par un matériau réel : un reflet existe parce qu'il y a du verre, une diffraction parce qu'il y a un traitement de surface, une lumière parce qu'il y a du métal poli, une irisation parce qu'il y a un foil. Ne jamais ajouter un effet uniquement parce qu'il est spectaculaire.
+
+### 16.14 Frontend Writing
+
+Verbes actifs, vocabulaire précis, libellés courts, aucune explication inutile, aucun jargon technique visible par le joueur, cohérence terminologique sur l'ensemble du produit. **Le texte fait partie du design.**
+
+### 16.15 Principe directeur permanent
+
+Avant toute nouvelle fonctionnalité, répondre à cette question :
+
+> **Est-ce que cette fonctionnalité rend l'ouverture d'un pack plus mémorable ?**
+
+Si la réponse est non, la fonctionnalité doit être remise en question ou reportée. **Le rituel d'ouverture reste le cœur absolu du produit.**
