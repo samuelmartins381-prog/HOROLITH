@@ -1,0 +1,122 @@
+/* Horolith Design Tokens
+   Single source of truth for all design values.
+   Import in globals.css before Tailwind. */
+
+:root {
+  /* ─── Palette ─────────────────────────────────────────────── */
+  --obsidian: #0b0c0e;
+  --blued-steel-deep: #1e3a5f;
+  --blued-steel: #2c5a8c;
+  --rhodium: #e8e6e1;
+  --rhodium-muted: #a8a49d;
+  --or-rose: #c9a36b;
+  --or-rose-deep: #9c7a48;
+  --rubis-deep: #7a1220;
+  --rubis: #b11e2f;
+  --lume: #c8d9c0;
+
+  /* Surface layers */
+  --surface-0: #0b0c0e; /* obsidian */
+  --surface-1: #111214;
+  --surface-2: #18191c;
+  --surface-3: #1f2025;
+
+  /* ─── Typography scale ────────────────────────────────────── */
+  /* These vars are populated by next/font at runtime */
+  --font-display: var(--font-cormorant, "Palatino Linotype", Georgia, serif);
+  --font-body: var(--font-inter, "Helvetica Neue", Arial, sans-serif);
+  --font-mono: var(--font-jetbrains-mono, "Fira Code", "Courier New", monospace);
+
+  --text-2xs: 0.625rem; /* 10px */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: 1.875rem; /* 30px */
+  --text-4xl: 2.25rem; /* 36px */
+  --text-5xl: 3rem; /* 48px */
+  --text-6xl: 3.75rem; /* 60px */
+  --text-display: 5rem; /* 80px */
+  --text-display-xl: 7rem; /* 112px */
+
+  /* Leading */
+  --leading-none: 1;
+  --leading-tight: 1.05;
+  --leading-display: 0.92;
+  --leading-body: 1.65;
+  --leading-relaxed: 1.8;
+
+  /* Letter spacing */
+  --tracking-tighter: -0.04em;
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.06em;
+  --tracking-wider: 0.12em;
+  --tracking-widest: 0.2em;
+
+  /* ─── Spacing ─────────────────────────────────────────────── */
+  --space-px: 1px;
+  --space-0-5: 0.125rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+  --space-40: 10rem;
+  --space-48: 12rem;
+  --space-64: 16rem;
+
+  /* ─── Border radius ───────────────────────────────────────── */
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-card: 8px;
+  --radius-lg: 12px;
+
+  /* ─── Motion ──────────────────────────────────────────────── */
+  /* Mechanical beat: ~4 Hz = 250ms per alternance */
+  --beat: 250ms;
+  --beat-2: 500ms;
+  --beat-4: 1000ms;
+
+  --duration-instant: 80ms;
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+  --duration-reveal: 1200ms;
+  --duration-cinematic: 2400ms;
+
+  /* Eases that feel mechanical, not springy */
+  --ease-out-mechanical: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-mechanical: cubic-bezier(0.64, 0, 0.78, 0);
+  --ease-inout-mechanical: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ─── Borders ─────────────────────────────────────────────── */
+  --border-hairline: 1px solid rgba(232, 230, 225, 0.08);
+  --border-subtle: 1px solid rgba(232, 230, 225, 0.15);
+  --border-or-rose: 1px solid rgba(201, 163, 107, 0.3);
+
+  /* ─── Shadows ─────────────────────────────────────────────── */
+  --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 8px 32px rgba(0, 0, 0, 0.7), 0 2px 8px rgba(201, 163, 107, 0.12);
+  --shadow-or-rose: 0 0 24px rgba(201, 163, 107, 0.2);
+  --shadow-lume: 0 0 40px rgba(200, 217, 192, 0.35);
+
+  /* ─── Z-index ─────────────────────────────────────────────── */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-overlay: 100;
+  --z-modal: 200;
+  --z-toast: 300;
+}
