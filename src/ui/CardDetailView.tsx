@@ -60,7 +60,9 @@ export default function CardDetailView({ card }: { card: Card }) {
           <blockquote className={styles.lore}>
             <p className={styles.loreText}>{card.lore}</p>
             {house && (
-              <footer className={styles.loreSource}>— {house.firstPrinciple}</footer>
+              <footer className={styles.loreSource}>
+                — {house.name}, Premier Principe
+              </footer>
             )}
           </blockquote>
 
