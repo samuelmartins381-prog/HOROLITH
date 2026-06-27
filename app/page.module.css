@@ -107,6 +107,22 @@
   text-transform: uppercase;
 }
 
+/* ─── Collection link ────────────────────────────────────────── */
+
+.collectionLink {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  color: rgba(201, 163, 107, 0.55);
+  text-decoration: none;
+  margin-top: var(--space-2);
+  transition: color 120ms ease;
+}
+
+.collectionLink:hover {
+  color: rgba(201, 163, 107, 0.9);
+}
+
 /* ─── Card stage ─────────────────────────────────────────────── */
 
 .stage {

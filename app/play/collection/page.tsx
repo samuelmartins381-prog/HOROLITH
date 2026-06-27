@@ -1,4 +1,10 @@
-// Phase 2 — Binder & collection view
+import type { Metadata } from "next";
+import CollectionBinder from "@/src/ui/CollectionBinder";
+
+export const metadata: Metadata = {
+  title: "Collection — Horolith",
+};
+
 export default function CollectionPage() {
-  return null;
+  return <CollectionBinder />;
 }

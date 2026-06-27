@@ -1,0 +1,236 @@
+/* ─── Detail page shell ──────────────────────────────────── */
+
+.detail {
+  min-height: 100svh;
+  padding: 1.5rem 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.back {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  color: rgba(232, 230, 225, 0.28);
+  text-decoration: none;
+  align-self: flex-start;
+  transition: color 120ms ease;
+}
+
+.back:hover {
+  color: rgba(232, 230, 225, 0.65);
+}
+
+/* ─── Two-column layout ──────────────────────────────────── */
+
+.layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 4rem;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.cardCol {
+  flex-shrink: 0;
+}
+
+.infoCol {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 0.5rem;
+}
+
+/* ─── Info header ────────────────────────────────────────── */
+
+.infoHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.houseLine {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.houseDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--house-color, #c9a36b);
+  flex-shrink: 0;
+}
+
+.houseName {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--house-color, #c9a36b);
+  opacity: 0.85;
+}
+
+.tierBadge {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tier-color, #c9a36b);
+  padding: 2px 7px;
+  border: 1px solid var(--tier-color, #c9a36b);
+  border-radius: 1px;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--rhodium);
+  margin: 0;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+.ref {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: rgba(232, 230, 225, 0.28);
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+/* ─── Lore ───────────────────────────────────────────────── */
+
+.lore {
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 1px solid rgba(232, 230, 225, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.loreText {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-style: italic;
+  color: rgba(232, 230, 225, 0.55);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.loreSource {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: rgba(201, 163, 107, 0.42);
+  letter-spacing: 0.1em;
+}
+
+/* ─── Separator ──────────────────────────────────────────── */
+
+.rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(232, 230, 225, 0.1) 30%,
+    rgba(232, 230, 225, 0.1) 70%,
+    transparent 100%
+  );
+}
+
+/* ─── Specs ──────────────────────────────────────────────── */
+
+.specs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+}
+
+.specRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.specLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 230, 225, 0.26);
+}
+
+.specValue {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: rgba(232, 230, 225, 0.55);
+  letter-spacing: 0.05em;
+  text-align: right;
+}
+
+/* ─── Complications ──────────────────────────────────────── */
+
+.complications {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.complicationsLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 230, 225, 0.26);
+}
+
+.complicationsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.complication {
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.06em;
+  color: rgba(232, 230, 225, 0.45);
+  padding: 3px 8px;
+  border: 1px solid rgba(232, 230, 225, 0.09);
+  border-radius: 1px;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+
+@media (max-width: 720px) {
+  .detail {
+    padding: 1.25rem 1.25rem 3rem;
+  }
+
+  .layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .infoCol {
+    padding-top: 0;
+    width: 100%;
+    max-width: 360px;
+  }
+}

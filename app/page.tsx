@@ -1,39 +1,14 @@
+import Link from "next/link";
 import type { Metadata } from "next";
-import type { Card } from "@/src/game/canon/types";
 import HorolCard from "@/src/render/card/HorolCard";
+import { SEED_CARDS } from "@/src/game/canon/seed-cards";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Horolith",
 };
 
-/*
- * Demo card — Caelis Grande Œuvre, for Phase 1 UI showcase only.
- * Real card data lives in the collection repository (Phase 2).
- */
-const DEMO_CARD: Card = {
-  id: "demo-caelis-go-001",
-  ref: "HRL-C01-GO",
-  house: "caelis",
-  rarity: "grande-oeuvre",
-  name: "Astrolabe Perpétuel",
-  project: "Projet IV · Caelis",
-  calibre: "Cal. HRL-C420",
-  architecture: "orbitale",
-  ih: 3850,
-  complications: [
-    "phases de lune",
-    "calendrier perpétuel",
-    "équation du temps",
-    "temps sidéral",
-  ],
-  dial: "aventurine",
-  serial: 4,
-  lore: "Le ciel fut la première horloge. Caelis en garde la mémoire.",
-  assets: {
-    face2d: "/assets/cards/demo.webp",
-  },
-};
+const SHOWCASE_CARD = SEED_CARDS[0];
 
 export default function HomePage() {
   return (
@@ -43,7 +18,7 @@ export default function HomePage() {
       <div className={styles.layout}>
         {/* ── Brand column ──────────────────────────── */}
         <div className={styles.brand}>
-          <p className={styles.eyebrow}>Phase I · Design système</p>
+          <p className={styles.eyebrow}>Manufacture · Horolith</p>
 
           <h1 className={styles.wordmark}>Horolith</h1>
 
@@ -58,11 +33,15 @@ export default function HomePage() {
             </p>
             <footer className={styles.quoteSource}>— Caelis, Premier Principe</footer>
           </blockquote>
+
+          <Link href="/play/collection" className={styles.collectionLink}>
+            Explorer la collection&thinsp;→
+          </Link>
         </div>
 
         {/* ── Card showcase ─────────────────────────── */}
         <div className={styles.stage}>
-          <HorolCard card={DEMO_CARD} />
+          <HorolCard card={SHOWCASE_CARD} />
         </div>
       </div>
 
