@@ -5,9 +5,11 @@
 :root {
   /* ─── Palette ─────────────────────────────────────────────── */
   --obsidian: #0b0c0e;
+  --obsidian-soft: #141518;
   --blued-steel-deep: #1e3a5f;
   --blued-steel: #2c5a8c;
   --rhodium: #e8e6e1;
+  --rhodium-soft: rgba(232, 230, 225, 0.6);
   --rhodium-muted: #a8a49d;
   --or-rose: #c9a36b;
   --or-rose-deep: #9c7a48;
@@ -21,11 +23,37 @@
   --surface-2: #18191c;
   --surface-3: #1f2025;
 
+  /* ─── Tier accent colors — Les 6 Niveaux de Création ─────── */
+  --tier-ebauche: #c8c5bd;
+  --tier-emergence: #2d7a4f;
+  --tier-maitrise: #c9a36b;
+  --tier-virtuosite: #7b5ea7;
+  --tier-grande-oeuvre: #a0242f;
+  --tier-opus-aeternum: #a8c8ff;
+
+  /* Tier glows (used in box-shadow) */
+  --tier-glow-ebauche: rgba(200, 197, 189, 0.06);
+  --tier-glow-emergence: rgba(45, 122, 79, 0.1);
+  --tier-glow-maitrise: rgba(201, 163, 107, 0.18);
+  --tier-glow-virtuosite: rgba(123, 94, 167, 0.18);
+  --tier-glow-grande-oeuvre: rgba(160, 36, 47, 0.22);
+  --tier-glow-opus-aeternum: rgba(168, 200, 255, 0.28);
+
+  /* ─── House accent colors — Les 8 Maisons ─────────────────── */
+  --house-valther: #b8b5b0;
+  --house-orvain: #8899a8;
+  --house-belvor: #c4a355;
+  --house-caelis: #3a6b9e;
+  --house-merian: #7a9ab0;
+  --house-ferrand: #6a7080;
+  --house-aurell: #5b7ec4;
+  --house-corven: #a09890;
+
   /* ─── Typography scale ────────────────────────────────────── */
   /* These vars are populated by next/font at runtime */
-  --font-display: var(--font-cormorant, "Palatino Linotype", Georgia, serif);
-  --font-body: var(--font-inter, "Helvetica Neue", Arial, sans-serif);
-  --font-mono: var(--font-jetbrains-mono, "Fira Code", "Courier New", monospace);
+  --font-display: var(--font-bodoni-moda, "Palatino Linotype", Georgia, serif);
+  --font-body: var(--font-inter-tight, "Helvetica Neue", Arial, sans-serif);
+  --font-mono: var(--font-ibm-plex-mono, "Fira Code", "Courier New", monospace);
 
   --text-2xs: 0.625rem; /* 10px */
   --text-xs: 0.75rem; /* 12px */

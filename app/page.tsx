@@ -1,8 +1,38 @@
 import type { Metadata } from "next";
+import type { Card } from "@/src/game/canon/types";
+import HorolCard from "@/src/render/card/HorolCard";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Horolith",
+};
+
+/*
+ * Demo card — Caelis Grande Œuvre, for Phase 1 UI showcase only.
+ * Real card data lives in the collection repository (Phase 2).
+ */
+const DEMO_CARD: Card = {
+  id: "demo-caelis-go-001",
+  ref: "HRL-C01-GO",
+  house: "caelis",
+  rarity: "grande-oeuvre",
+  name: "Astrolabe Perpétuel",
+  project: "Projet IV · Caelis",
+  calibre: "Cal. HRL-C420",
+  architecture: "orbitale",
+  ih: 3850,
+  complications: [
+    "phases de lune",
+    "calendrier perpétuel",
+    "équation du temps",
+    "temps sidéral",
+  ],
+  dial: "aventurine",
+  serial: 4,
+  lore: "Le ciel fut la première horloge. Caelis en garde la mémoire.",
+  assets: {
+    face2d: "/assets/cards/demo.webp",
+  },
 };
 
 export default function HomePage() {
@@ -10,21 +40,35 @@ export default function HomePage() {
     <main className={styles.page} aria-label="Horolith — accueil">
       <GuillocheBg />
 
-      <div className={styles.content}>
-        <p className={styles.calibre}>Calibre HRL-0 · Fondations</p>
+      <div className={styles.layout}>
+        {/* ── Brand column ──────────────────────────── */}
+        <div className={styles.brand}>
+          <p className={styles.eyebrow}>Phase I · Design système</p>
 
-        <h1 className={styles.wordmark}>Horolith</h1>
+          <h1 className={styles.wordmark}>Horolith</h1>
 
-        <div className={styles.divider} aria-hidden="true" />
+          <div className={styles.divider} aria-hidden="true" />
 
-        <p className={styles.tagline}>L&apos;art de la collection horlogère</p>
+          <p className={styles.tagline}>L&apos;art de la collection horlogère</p>
+
+          <blockquote className={styles.quote}>
+            <p className={styles.quoteText}>
+              &ldquo;Toute grande création doit rappeler que le temps dépasse
+              l&apos;Homme.&rdquo;
+            </p>
+            <footer className={styles.quoteSource}>— Caelis, Premier Principe</footer>
+          </blockquote>
+        </div>
+
+        {/* ── Card showcase ─────────────────────────── */}
+        <div className={styles.stage}>
+          <HorolCard card={DEMO_CARD} />
+        </div>
       </div>
 
       <footer className={styles.footer}>
-        <div className={styles.footerLabel}>
-          <span className={styles.footerDot} aria-hidden="true" />
-          Phase 0 · Fondations
-        </div>
+        <span className={styles.footerDot} aria-hidden="true" />
+        <span className={styles.footerLabel}>Caelis · Grande Œuvre · Aventurine</span>
       </footer>
     </main>
   );
@@ -41,7 +85,7 @@ function GuillocheBg() {
       >
         <defs>
           <pattern
-            id="guilloche-pattern"
+            id="gp"
             x="0"
             y="0"
             width="24"
@@ -56,7 +100,7 @@ function GuillocheBg() {
               height="22"
               fill="none"
               stroke="#e8e6e1"
-              strokeWidth="0.5"
+              strokeWidth="0.4"
             />
             <rect
               x="5"
@@ -65,11 +109,11 @@ function GuillocheBg() {
               height="14"
               fill="none"
               stroke="#e8e6e1"
-              strokeWidth="0.3"
+              strokeWidth="0.22"
             />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#guilloche-pattern)" />
+        <rect width="100%" height="100%" fill="url(#gp)" />
       </svg>
     </div>
   );

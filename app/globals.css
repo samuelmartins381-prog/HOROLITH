@@ -4,6 +4,7 @@
 @theme inline {
   /* Map Horolith tokens into Tailwind v4 theme */
   --color-obsidian: var(--obsidian);
+  --color-obsidian-soft: var(--obsidian-soft);
   --color-blued-steel-deep: var(--blued-steel-deep);
   --color-blued-steel: var(--blued-steel);
   --color-rhodium: var(--rhodium);
@@ -18,6 +19,24 @@
   --color-surface-1: var(--surface-1);
   --color-surface-2: var(--surface-2);
   --color-surface-3: var(--surface-3);
+
+  /* Tier colors */
+  --color-tier-ebauche: var(--tier-ebauche);
+  --color-tier-emergence: var(--tier-emergence);
+  --color-tier-maitrise: var(--tier-maitrise);
+  --color-tier-virtuosite: var(--tier-virtuosite);
+  --color-tier-grande-oeuvre: var(--tier-grande-oeuvre);
+  --color-tier-opus-aeternum: var(--tier-opus-aeternum);
+
+  /* House colors */
+  --color-house-valther: var(--house-valther);
+  --color-house-orvain: var(--house-orvain);
+  --color-house-belvor: var(--house-belvor);
+  --color-house-caelis: var(--house-caelis);
+  --color-house-merian: var(--house-merian);
+  --color-house-ferrand: var(--house-ferrand);
+  --color-house-aurell: var(--house-aurell);
+  --color-house-corven: var(--house-corven);
 
   --font-display: var(--font-display);
   --font-body: var(--font-body);

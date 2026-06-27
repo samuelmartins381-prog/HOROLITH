@@ -1,3 +1,5 @@
+/* ─── Page shell ─────────────────────────────────────────────── */
+
 .page {
   position: relative;
   min-height: 100svh;
@@ -6,39 +8,56 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
+  padding: 2rem 1.5rem;
 }
+
+/* ─── Guilloché background ───────────────────────────────────── */
 
 .guillocheBg {
   pointer-events: none;
   position: fixed;
   inset: 0;
   z-index: 0;
-  opacity: 0.028;
+  opacity: 0.022;
 }
 
-.content {
+/* ─── Two-column layout ──────────────────────────────────────── */
+
+.layout {
   position: relative;
   z-index: 1;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: var(--space-3);
+  gap: 5rem;
+  max-width: 860px;
+  width: 100%;
 }
 
-.calibre {
-  font-family: var(--font-jetbrains-mono);
+/* ─── Brand column ───────────────────────────────────────────── */
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
   font-size: var(--text-2xs);
   letter-spacing: var(--tracking-widest);
   text-transform: uppercase;
-  color: rgba(201, 163, 107, 0.45);
+  color: rgba(201, 163, 107, 0.42);
+  margin: 0;
 }
 
 .wordmark {
-  font-family: var(--font-cormorant);
-  font-size: clamp(3.5rem, 10vw, 7rem);
-  font-weight: 300;
-  letter-spacing: 0.25em;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 7.5vw, 5rem);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.16em;
   color: var(--rhodium);
   line-height: var(--leading-display);
   text-transform: uppercase;
@@ -46,15 +65,15 @@
 }
 
 .divider {
-  width: 3.5rem;
+  width: 2.5rem;
   height: 1px;
   background: var(--or-rose);
-  opacity: 0.55;
-  margin: var(--space-1) 0;
+  opacity: 0.48;
+  flex-shrink: 0;
 }
 
 .tagline {
-  font-family: var(--font-inter);
+  font-family: var(--font-body);
   font-size: var(--text-sm);
   font-weight: 300;
   letter-spacing: var(--tracking-wider);
@@ -63,31 +82,83 @@
   margin: 0;
 }
 
+/* ─── Maison quote ───────────────────────────────────────────── */
+
+.quote {
+  margin: var(--space-6) 0 0;
+  padding-left: var(--space-4);
+  border-left: 1px solid rgba(232, 230, 225, 0.08);
+}
+
+.quoteText {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: rgba(232, 230, 225, 0.42);
+  margin: 0 0 var(--space-1);
+  line-height: 1.55;
+}
+
+.quoteSource {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: rgba(201, 163, 107, 0.38);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ─── Card stage ─────────────────────────────────────────────── */
+
+.stage {
+  flex-shrink: 0;
+}
+
+/* ─── Page footer ────────────────────────────────────────────── */
+
 .footer {
   position: absolute;
-  bottom: var(--space-12);
+  bottom: var(--space-8);
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: var(--space-2);
+  z-index: 1;
 }
 
 .footerDot {
   display: inline-block;
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: var(--or-rose);
+  opacity: 0.6;
   flex-shrink: 0;
 }
 
 .footerLabel {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-family: var(--font-jetbrains-mono);
+  font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: var(--rhodium-muted);
+  color: rgba(232, 230, 225, 0.28);
   letter-spacing: var(--tracking-wide);
-  opacity: 0.6;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+
+@media (max-width: 700px) {
+  .layout {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-10);
+    text-align: center;
+  }
+
+  .brand {
+    align-items: center;
+  }
+
+  .quote {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid rgba(232, 230, 225, 0.08);
+    padding-top: var(--space-4);
+  }
 }

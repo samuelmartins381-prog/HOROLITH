@@ -1,24 +1,26 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant, Inter, JetBrains_Mono } from "next/font/google";
+import { Bodoni_Moda, Inter_Tight, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const cormorant = Cormorant({
-  variable: "--font-cormorant",
+const bodoniModa = Bodoni_Moda({
+  variable: "--font-bodoni-moda",
+  subsets: ["latin"],
+  display: "swap",
+  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
+const interTight = Inter_Tight({
+  variable: "--font-inter-tight",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-ibm-plex-mono",
   subsets: ["latin"],
   display: "swap",
   weight: ["300", "400", "500", "600", "700"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -44,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${cormorant.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${bodoniModa.variable} ${interTight.variable} ${ibmPlexMono.variable}`}
     >
       <body className="antialiased">{children}</body>
     </html>

@@ -1,0 +1,282 @@
+/* ─── Scene (perspective container) ─────────────────────────── */
+
+.scene {
+  perspective: 900px;
+  perspective-origin: 50% 50%;
+  display: inline-block;
+  cursor: none;
+}
+
+/* ─── Card ───────────────────────────────────────────────────── */
+
+.card {
+  position: relative;
+  width: 280px;
+  height: 420px;
+  border-radius: 10px;
+  overflow: hidden;
+
+  /* Depth layers: angled gradient simulates material depth */
+  background: linear-gradient(
+    158deg,
+    rgba(32, 33, 37, 0.95) 0%,
+    rgba(20, 21, 24, 0.98) 45%,
+    rgba(12, 13, 15, 1) 100%
+  );
+
+  border: 1px solid var(--tier-color, #c9a36b);
+
+  box-shadow:
+    0 0 0 0.5px rgba(232, 230, 225, 0.04),
+    0 6px 30px rgba(0, 0, 0, 0.75),
+    0 1px 4px rgba(0, 0, 0, 0.5),
+    0 0 40px var(--tier-glow, rgba(201, 163, 107, 0.1));
+
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 80ms linear;
+  will-change: transform;
+
+  display: flex;
+  flex-direction: column;
+  padding: 14px 13px 11px;
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transform: none !important;
+    transition: none;
+  }
+  .foilOverlay {
+    display: none;
+  }
+}
+
+/* ─── Header ─────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 9px;
+  flex-shrink: 0;
+}
+
+.houseTag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.houseDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--house-color, #c9a36b);
+  flex-shrink: 0;
+}
+
+.houseName {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--house-color, #c9a36b);
+  opacity: 0.85;
+}
+
+.rarityBadge {
+  padding: 2px 6px;
+  border: 1px solid var(--tier-color, #c9a36b);
+  border-radius: 1px;
+}
+
+.rarityLabel {
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tier-color, #c9a36b);
+}
+
+/* ─── Name ───────────────────────────────────────────────────── */
+
+.nameRow {
+  flex-shrink: 0;
+  margin-bottom: 8px;
+}
+
+.cardName {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--rhodium);
+  line-height: 1.12;
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+
+/* ─── Watch area ─────────────────────────────────────────────── */
+
+.watchArea {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 0;
+}
+
+/* ─── Metadata row ───────────────────────────────────────────── */
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 7px;
+  flex-shrink: 0;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  color: rgba(232, 230, 225, 0.42);
+  letter-spacing: 0.07em;
+}
+
+.metaDot {
+  color: rgba(232, 230, 225, 0.18);
+  font-size: 9px;
+  line-height: 1;
+}
+
+.ih {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  color: var(--tier-color, #c9a36b);
+  letter-spacing: 0.05em;
+}
+
+/* ─── Separator ──────────────────────────────────────────────── */
+
+.rule {
+  height: 1px;
+  margin: 5px 0;
+  flex-shrink: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(232, 230, 225, 0.1) 20%,
+    rgba(232, 230, 225, 0.1) 80%,
+    transparent 100%
+  );
+}
+
+/* ─── Architecture ───────────────────────────────────────────── */
+
+.archRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.fieldLabel {
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(232, 230, 225, 0.28);
+}
+
+.fieldValue {
+  font-family: var(--font-body);
+  font-size: 8px;
+  color: rgba(232, 230, 225, 0.55);
+  letter-spacing: 0.04em;
+}
+
+/* ─── Complications ──────────────────────────────────────────── */
+
+.complications {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.complication {
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.06em;
+  color: rgba(232, 230, 225, 0.35);
+  padding: 1.5px 4px;
+  border: 1px solid rgba(232, 230, 225, 0.07);
+  border-radius: 1px;
+  white-space: nowrap;
+}
+
+/* ─── Footer ─────────────────────────────────────────────────── */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 7px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(232, 230, 225, 0.05);
+  flex-shrink: 0;
+}
+
+.serial {
+  font-family: var(--font-mono);
+  font-size: 7px;
+  color: rgba(232, 230, 225, 0.22);
+  letter-spacing: 0.12em;
+}
+
+.project {
+  font-family: var(--font-mono);
+  font-size: 7px;
+  color: rgba(201, 163, 107, 0.38);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ─── Foil shimmer (Maîtrise+) ───────────────────────────────── */
+
+.foilOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 10px;
+  /* Iridescent halo that follows the mouse via --foil-x/y */
+  background: radial-gradient(
+    ellipse 90% 90% at var(--foil-x, 50%) var(--foil-y, 50%),
+    rgba(201, 163, 107, 0.14) 0%,
+    rgba(200, 217, 192, 0.07) 30%,
+    rgba(100, 140, 220, 0.09) 58%,
+    rgba(160, 36, 47, 0.04) 75%,
+    transparent 90%
+  );
+  mix-blend-mode: overlay;
+  z-index: 5;
+  transition: background-position 50ms linear;
+}
+
+/* ─── Lume halo (Grande Œuvre+) ─────────────────────────────── */
+
+.lumeHalo {
+  position: absolute;
+  inset: -3px;
+  pointer-events: none;
+  border-radius: 13px;
+  box-shadow:
+    0 0 28px rgba(200, 217, 192, 0.2),
+    0 0 60px rgba(200, 217, 192, 0.08);
+  z-index: 0;
+}
