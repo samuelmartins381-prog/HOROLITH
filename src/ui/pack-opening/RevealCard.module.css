@@ -61,6 +61,14 @@
   animation: flipExpand 200ms var(--ease-out-mechanical) forwards;
 }
 
+/* ─── Card front wrapper (SapphireOverlay positioned relative) ── */
+
+.cardFront {
+  position: relative;
+  width: 280px;
+  height: 420px;
+}
+
 /* ─── Card back ───────────────────────────────────────────────── */
 
 .back {

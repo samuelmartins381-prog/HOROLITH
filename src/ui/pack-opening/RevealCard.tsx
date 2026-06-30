@@ -2,7 +2,11 @@
 
 import { useState, useEffect, useRef } from "react";
 import HorolCard from "@/src/render/card/HorolCard";
+import SapphireOverlay from "@/src/render/SapphireOverlay";
+import LumeParticles from "@/src/render/LumeParticles";
+import { RARITIES } from "@/src/game/canon/rarities";
 import type { Card } from "@/src/game/canon/types";
+import type { RarityId } from "@/src/game/canon/types";
 import styles from "./RevealCard.module.css";
 
 interface RevealCardProps {
@@ -21,6 +25,8 @@ export default function RevealCard({ card, isRevealed, onFlip }: RevealCardProps
     typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
+
+  const tier = RARITIES[card.rarity]?.tier ?? 1;
 
   useEffect(() => {
     if (!isRevealed || hasFlippedRef.current) return;
@@ -72,7 +78,11 @@ export default function RevealCard({ card, isRevealed, onFlip }: RevealCardProps
     >
       <div className={`${styles.cardInner}${flipState ? ` ${styles[flipState]}` : ""}`}>
         {showFront ? (
-          <HorolCard card={card} />
+          <div className={styles.cardFront}>
+            <HorolCard card={card} />
+            {/* Sapphire glass overlay for Maîtrise and above */}
+            {tier >= 3 && <SapphireOverlay rarity={card.rarity as RarityId} />}
+          </div>
         ) : (
           <div className={styles.back}>
             <div className={styles.backGuilloché} aria-hidden="true" />
@@ -85,6 +95,9 @@ export default function RevealCard({ card, isRevealed, onFlip }: RevealCardProps
           </div>
         )}
       </div>
+
+      {/* Lume particle burst for Grande Œuvre and Opus Aeternum */}
+      {showFront && tier >= 5 && <LumeParticles rarity={card.rarity as RarityId} />}
     </div>
   );
 }
