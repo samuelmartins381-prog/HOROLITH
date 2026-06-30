@@ -174,8 +174,10 @@
 
 .empty {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 20px;
   flex: 1;
   padding: 4rem 2rem;
 }
@@ -187,6 +189,26 @@
   letter-spacing: var(--tracking-wide);
   text-align: center;
   margin: 0;
+}
+
+.emptyAction {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--or-rose);
+  text-decoration: none;
+  padding: 10px 24px;
+  border: 1px solid rgba(201, 163, 107, 0.28);
+  border-radius: 2px;
+  transition:
+    border-color var(--duration-fast),
+    background var(--duration-fast);
+}
+
+.emptyAction:hover {
+  border-color: var(--or-rose);
+  background: rgba(201, 163, 107, 0.04);
 }
 
 /* ─── Responsive ─────────────────────────────────────────── */

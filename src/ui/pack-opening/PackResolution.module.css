@@ -1,0 +1,184 @@
+/* ─── Resolution panel ────────────────────────────────────────── */
+
+.resolution {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 32px 24px 40px;
+  width: 100%;
+  max-width: 700px;
+  animation: fadeUp 400ms var(--ease-reveal) both;
+  animation-delay: 200ms;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Header ─────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.summary {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--rhodium);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.newCount {
+  color: var(--tier-emergence);
+}
+
+.duplicates {
+  color: var(--rhodium-muted);
+}
+
+.eclats {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--or-rose);
+  margin: 0;
+}
+
+/* ─── Result list ─────────────────────────────────────────────── */
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(232, 230, 225, 0.05);
+}
+
+.item:first-child {
+  border-top: 1px solid rgba(232, 230, 225, 0.05);
+}
+
+.rarityDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cardName {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(232, 230, 225, 0.72);
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rarityName {
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.newBadge {
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tier-emergence);
+  border: 1px solid rgba(45, 122, 79, 0.4);
+  padding: 1.5px 5px;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+.eclatsAmount {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  color: rgba(201, 163, 107, 0.55);
+  flex-shrink: 0;
+}
+
+/* ─── Footer CTAs ─────────────────────────────────────────────── */
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.btnPrimary {
+  padding: 11px 40px;
+  border: 1px solid rgba(201, 163, 107, 0.4);
+  border-radius: 2px;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--or-rose);
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-out-mechanical),
+    background var(--duration-fast) var(--ease-out-mechanical);
+  min-width: 220px;
+  text-align: center;
+}
+
+.btnPrimary:hover {
+  border-color: var(--or-rose);
+  background: rgba(201, 163, 107, 0.06);
+}
+
+.btnSecondary {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(232, 230, 225, 0.28);
+  text-decoration: none;
+  padding: 8px 16px;
+  transition: color var(--duration-fast);
+}
+
+.btnSecondary:hover {
+  color: rgba(232, 230, 225, 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resolution {
+    animation: none;
+  }
+}

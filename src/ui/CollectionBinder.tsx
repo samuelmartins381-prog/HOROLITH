@@ -102,7 +102,16 @@ export default function CollectionBinder() {
       {/* ── Grid ──────────────────────────────────── */}
       {filtered.length === 0 ? (
         <div className={styles.empty}>
-          <p className={styles.emptyText}>Aucune création dans cette sélection.</p>
+          {allCards.length === 0 ? (
+            <>
+              <p className={styles.emptyText}>Votre collection est vide.</p>
+              <Link href="/play/open" className={styles.emptyAction}>
+                Ouvrir un Coffret
+              </Link>
+            </>
+          ) : (
+            <p className={styles.emptyText}>Aucune création dans cette sélection.</p>
+          )}
         </div>
       ) : (
         <ul className={styles.grid} aria-label="Créations de la collection">

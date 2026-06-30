@@ -1,0 +1,57 @@
+/* ─── Scrollable card row ─────────────────────────────────────── */
+
+.grid {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 8px 32px 16px;
+  /* Hide scrollbar while keeping scroll behaviour */
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.grid::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Entry animation per slot ────────────────────────────────── */
+
+.slot {
+  animation: cardEntry 400ms var(--ease-reveal) both;
+}
+
+.slot:nth-child(1) {
+  animation-delay: 0ms;
+}
+.slot:nth-child(2) {
+  animation-delay: 40ms;
+}
+.slot:nth-child(3) {
+  animation-delay: 80ms;
+}
+.slot:nth-child(4) {
+  animation-delay: 120ms;
+}
+.slot:nth-child(5) {
+  animation-delay: 160ms;
+}
+
+@keyframes cardEntry {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Reduced motion ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .slot {
+    animation: none;
+  }
+}

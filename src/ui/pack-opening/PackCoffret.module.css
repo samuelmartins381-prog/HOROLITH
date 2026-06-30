@@ -1,0 +1,165 @@
+/* ─── Perspective container ───────────────────────────────────── */
+
+.scene {
+  perspective: 900px;
+  perspective-origin: 50% 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ─── Box (base + lid together) ─────────────────────────────────  */
+
+.box {
+  position: relative;
+  width: 360px;
+  height: 148px;
+  transform-style: preserve-3d;
+}
+
+/* ─── Interior (visible when lid opens) ──────────────────────── */
+
+.interior {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(26, 14, 14, 0.95) 0%, rgba(18, 9, 9, 1) 100%);
+  border: 1px solid rgba(160, 36, 47, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px 12px;
+}
+
+.interiorMark {
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(160, 36, 47, 0.5);
+}
+
+.watchSlots {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.watchSlot {
+  width: 48px;
+  height: 60px;
+  border-radius: 50% 50% 4px 4px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(160, 36, 47, 0.15);
+}
+
+/* ─── Lid ─────────────────────────────────────────────────────── */
+
+.lid {
+  position: absolute;
+  inset: 0;
+  transform-origin: center top;
+  transform-style: preserve-3d;
+}
+
+.lidFace {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: linear-gradient(
+    158deg,
+    rgba(30, 32, 38, 0.98) 0%,
+    rgba(14, 15, 18, 1) 100%
+  );
+  border: 1px solid rgba(201, 163, 107, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  /* Embossed surface via subtle texture */
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(232, 230, 225, 0.012) 0px,
+      rgba(232, 230, 225, 0.012) 1px,
+      transparent 1px,
+      transparent 24px
+    ),
+    linear-gradient(158deg, rgba(30, 32, 38, 0.98) 0%, rgba(14, 15, 18, 1) 100%);
+}
+
+.lidWordmark {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.38em;
+  color: rgba(201, 163, 107, 0.72);
+  text-transform: uppercase;
+}
+
+.lidRule {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 163, 107, 0.4), transparent);
+}
+
+.lidSub {
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(201, 163, 107, 0.3);
+}
+
+/* ─── Glint sweep ─────────────────────────────────────────────── */
+
+.glint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(232, 230, 225, 0.06) 50%,
+    transparent 70%
+  );
+  animation: glint 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glint {
+  0%,
+  70%,
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  78% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* ─── Ground shadow ───────────────────────────────────────────── */
+
+.shadow {
+  width: 300px;
+  height: 16px;
+  margin-top: 6px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 0, 0, 0.55) 0%, transparent 70%);
+}
+
+/* ─── Reduced motion ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .glint {
+    animation: none;
+    display: none;
+  }
+}

@@ -9,15 +9,11 @@ type CollectionState = {
   owned: Record<string, number>;
   newIds: string[];
   addCard: (cardId: string) => void;
+  addCards: (cardIds: string[]) => void;
   markSeen: (cardId: string) => void;
   getOwnedCards: () => Card[];
   getTotalCount: () => number;
 };
-
-const initialOwned: Record<string, number> = {};
-for (const card of SEED_CARDS) {
-  initialOwned[card.id] = 1;
-}
 
 const noopStorage = {
   getItem: () => null,
@@ -28,7 +24,7 @@ const noopStorage = {
 export const useCollectionStore = create<CollectionState>()(
   persist(
     (set, get) => ({
-      owned: initialOwned,
+      owned: {},
       newIds: [],
 
       addCard: (cardId) =>
@@ -36,6 +32,17 @@ export const useCollectionStore = create<CollectionState>()(
           owned: { ...s.owned, [cardId]: (s.owned[cardId] ?? 0) + 1 },
           newIds: s.owned[cardId] ? s.newIds : [...s.newIds, cardId],
         })),
+
+      addCards: (cardIds) =>
+        set((s) => {
+          const nextOwned = { ...s.owned };
+          const nextNewIds = [...s.newIds];
+          for (const id of cardIds) {
+            if (!nextOwned[id]) nextNewIds.push(id);
+            nextOwned[id] = (nextOwned[id] ?? 0) + 1;
+          }
+          return { owned: nextOwned, newIds: nextNewIds };
+        }),
 
       markSeen: (cardId) =>
         set((s) => ({ newIds: s.newIds.filter((id) => id !== cardId) })),

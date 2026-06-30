@@ -1,0 +1,271 @@
+/* ─── Full-viewport stage ─────────────────────────────────────── */
+
+.scene {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--obsidian);
+  overflow: hidden;
+  /* Subtle guilloché micro-texture */
+  background-image: repeating-conic-gradient(
+    rgba(232, 230, 225, 0.009) 0deg,
+    transparent 0.4deg,
+    transparent 2deg,
+    rgba(232, 230, 225, 0.009) 2.4deg
+  );
+}
+
+/* ─── Radial ambient glow (background depth) ─────────────────── */
+
+.scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 60% at 50% 55%,
+    rgba(30, 58, 95, 0.12) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ─── Wallet — fixed top right ────────────────────────────────── */
+
+.wallet {
+  position: fixed;
+  top: 22px;
+  right: 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  z-index: var(--z-overlay);
+}
+
+.walletItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.walletLabel {
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(232, 230, 225, 0.28);
+}
+
+.walletValue {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--rhodium);
+}
+
+.walletValue.sceaux {
+  color: var(--or-rose);
+}
+
+.walletValue.eclats {
+  color: rgba(232, 230, 225, 0.5);
+}
+
+/* ─── Back link — fixed top left ─────────────────────────────── */
+
+.backLink {
+  position: fixed;
+  top: 22px;
+  left: 28px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(232, 230, 225, 0.22);
+  text-decoration: none;
+  transition: color var(--duration-fast);
+  z-index: var(--z-overlay);
+  padding: 4px;
+}
+
+.backLink:hover {
+  color: rgba(232, 230, 225, 0.5);
+}
+
+/* ─── Content stage ───────────────────────────────────────────── */
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  padding: 80px 24px 100px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Coffret area ────────────────────────────────────────────── */
+
+.coffretArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  animation: fadeIn 400ms var(--ease-reveal) both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.coffretLabel {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(232, 230, 225, 0.18);
+}
+
+/* ─── Payment buttons ─────────────────────────────────────────── */
+
+.paymentRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.paymentBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 22px;
+  min-width: 280px;
+  border: 1px solid rgba(232, 230, 225, 0.1);
+  border-radius: 2px;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-out-mechanical),
+    background var(--duration-fast) var(--ease-out-mechanical);
+}
+
+.paymentBtn:hover:not(:disabled) {
+  border-color: rgba(201, 163, 107, 0.4);
+  background: rgba(201, 163, 107, 0.03);
+}
+
+.paymentBtn:focus-visible {
+  outline: 1px solid rgba(201, 163, 107, 0.5);
+  outline-offset: 2px;
+}
+
+.paymentBtn:disabled {
+  opacity: 0.28;
+  cursor: not-allowed;
+}
+
+.paymentBtnLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(232, 230, 225, 0.45);
+  flex: 1;
+  text-align: left;
+}
+
+.paymentBtnCost {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--or-rose);
+  white-space: nowrap;
+}
+
+.paymentBtnCost.daily {
+  color: var(--tier-emergence);
+}
+
+.paymentBtnCost.lingots {
+  color: var(--tier-opus-aeternum);
+}
+
+.paymentSpacer {
+  width: 280px;
+  height: 1px;
+  background: rgba(232, 230, 225, 0.06);
+  margin: 4px 0;
+}
+
+/* ─── Cards reveal area ───────────────────────────────────────── */
+
+.cardsArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.cardsLabel {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(232, 230, 225, 0.2);
+  animation: fadeIn 300ms var(--ease-reveal);
+}
+
+/* ─── Unsealing state overlay ─────────────────────────────────── */
+
+.unsealingCoffret {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: pulseAura 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseAura {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 20px rgba(201, 163, 107, 0.1));
+  }
+  50% {
+    filter: drop-shadow(0 0 40px rgba(201, 163, 107, 0.25));
+  }
+}
+
+/* ─── Hold-to-skip ────────────────────────────────────────────── */
+
+.skipArea {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-overlay);
+}
+
+/* ─── Reduced motion ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .coffretArea,
+  .cardsLabel {
+    animation: none;
+  }
+  .unsealingCoffret {
+    animation: none;
+  }
+}
