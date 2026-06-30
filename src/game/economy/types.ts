@@ -1,19 +1,11 @@
 /*
- * Economy types — currency names and conversion rates from canon.
- * Stub — implemented in Phase 3.
+ * Economy types — Horolith Game Bible, Chapters 5–9.
  */
 
-export type Currency = {
-  id: string;
-  name: string;
-  isPremium: boolean;
-};
+export type { CurrencyId } from "./currencies";
 
 export type Wallet = {
-  currencies: Record<string, number>;
-};
-
-export type ShardConversion = {
-  cardRarity: string;
-  shardsAwarded: number;
+  sceaux: number;
+  lingots: number;
+  eclats: number;
 };
