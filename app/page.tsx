@@ -12,7 +12,7 @@ const SHOWCASE_CARD = SEED_CARDS.find((c) => c.name === "Astrum Suprema")!;
 
 export default function HomePage() {
   return (
-    <main className={styles.page} aria-label="Horolith — accueil">
+    <main id="main-content" className={styles.page} aria-label="Horolith — accueil">
       <GuillocheBg />
 
       <div className={styles.layout}>
@@ -26,6 +26,10 @@ export default function HomePage() {
 
           <p className={styles.tagline}>L&apos;art de la collection horlogère</p>
 
+          <p className={styles.maisonsLine} aria-label="Les 8 Maisons Horolith">
+            Valther · Orvain · Belvor · Caelis · Merian · Ferrand · Aurell · Corven
+          </p>
+
           <blockquote className={styles.quote}>
             <p className={styles.quoteText}>
               &ldquo;Toute grande création doit rappeler que le temps dépasse
@@ -34,9 +38,14 @@ export default function HomePage() {
             <footer className={styles.quoteSource}>— Caelis, Premier Principe</footer>
           </blockquote>
 
-          <Link href="/play/collection" className={styles.collectionLink}>
-            Explorer la collection&thinsp;→
-          </Link>
+          <nav className={styles.ctaNav} aria-label="Actions principales">
+            <Link href="/play/open" className={styles.ctaPrimary}>
+              Ouvrir un coffret
+            </Link>
+            <Link href="/play/collection" className={styles.ctaSecondary}>
+              Ma collection&thinsp;→
+            </Link>
+          </nav>
         </div>
 
         {/* ── Card showcase ─────────────────────────── */}

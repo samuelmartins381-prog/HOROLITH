@@ -46,6 +46,7 @@ export default function PackOpeningScene() {
   const [results, setResults] = useState<CardResult[]>([]);
   const [sortedCards, setSortedCards] = useState<Card[]>([]);
   const [revealedCount, setRevealedCount] = useState(0);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const scheduleRef = useRef<((fromIndex: number, delay: number) => void) | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -145,6 +146,7 @@ export default function PackOpeningScene() {
     async (pay: PaymentMethod) => {
       if (phase !== "idle" || rollingRef.current) return;
       rollingRef.current = true;
+      setApiError(null);
 
       try {
         if (user) {
@@ -159,6 +161,7 @@ export default function PackOpeningScene() {
 
           if (!response.ok) {
             startTicking(80);
+            setApiError("L'ouverture a échoué — réessayez dans un moment.");
             rollingRef.current = false;
             return;
           }
@@ -223,6 +226,7 @@ export default function PackOpeningScene() {
         }
       } catch {
         startTicking(80);
+        setApiError("Erreur réseau — vérifiez votre connexion.");
       }
 
       rollingRef.current = false;
@@ -298,6 +302,7 @@ export default function PackOpeningScene() {
     setSortedCards([]);
     setRevealedCount(0);
     setPhase("idle");
+    setApiError(null);
     startTicking(80);
     accrueDailyPacks();
   }, [clearTimer, accrueDailyPacks]);
@@ -347,6 +352,11 @@ export default function PackOpeningScene() {
               isOpen={phase === "unsealing"}
               onAnimationComplete={handleCoffretComplete}
             />
+            {phase === "idle" && apiError && (
+              <p className={styles.apiError} role="alert">
+                {apiError}
+              </p>
+            )}
             {phase === "idle" && (
               <div className={styles.paymentRow}>
                 {pendingDailyPacks > 0 && (

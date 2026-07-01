@@ -50,6 +50,9 @@ export default function RootLayout({
       className={`${bodoniModa.variable} ${interTight.variable} ${ibmPlexMono.variable}`}
     >
       <body className="antialiased">
+        <a href="#main-content" className="skip-link">
+          Aller au contenu
+        </a>
         <Providers>{children}</Providers>
       </body>
     </html>

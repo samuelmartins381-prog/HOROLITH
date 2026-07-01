@@ -39,11 +39,27 @@ export function useServerSync() {
       ]);
 
       if (collectionRes.data) {
-        const owned: Record<string, number> = {};
-        for (const row of collectionRes.data) {
-          owned[row.card_id] = row.quantity;
+        if (collectionRes.data.length > 0) {
+          const owned: Record<string, number> = {};
+          for (const row of collectionRes.data) {
+            owned[row.card_id] = row.quantity;
+          }
+          hydrateCollection(owned);
+        } else {
+          // Server collection empty on first login — migrate local guest cards
+          const localOwned = useCollectionStore.getState().owned;
+          const hasCards = Object.values(localOwned).some((q) => (q ?? 0) > 0);
+          if (hasCards) {
+            fetch("/api/migrate-guest", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ collection: localOwned }),
+            }).catch(() => {});
+            // Local collection stays in store — don't overwrite with empty
+          } else {
+            hydrateCollection({});
+          }
         }
-        hydrateCollection(owned);
       }
 
       if (walletRes.data && pityRes.data) {

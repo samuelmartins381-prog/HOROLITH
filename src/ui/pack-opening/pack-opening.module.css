@@ -258,6 +258,18 @@
   z-index: var(--z-overlay);
 }
 
+/* ─── API error notice ────────────────────────────────────────── */
+
+.apiError {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.08em;
+  color: rgba(178, 30, 47, 0.8);
+  margin: 0;
+  text-align: center;
+  animation: fadeIn 200ms ease;
+}
+
 /* ─── Reduced motion ──────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
