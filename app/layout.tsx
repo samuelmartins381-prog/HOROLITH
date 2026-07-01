@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Bodoni_Moda, Inter_Tight, IBM_Plex_Mono } from "next/font/google";
+import Providers from "./Providers";
 import "./globals.css";
 
 const bodoniModa = Bodoni_Moda({
@@ -48,7 +49,9 @@ export default function RootLayout({
       lang="fr"
       className={`${bodoniModa.variable} ${interTight.variable} ${ibmPlexMono.variable}`}
     >
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

@@ -1,0 +1,174 @@
+/* ─── Auth gate — persistent sign-in banner ───────────────────── */
+
+.gate {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 18px 24px;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 12, 14, 0) 0%,
+    rgba(11, 12, 14, 0.92) 30%,
+    rgba(11, 12, 14, 0.98) 100%
+  );
+  border-top: 1px solid rgba(201, 163, 107, 0.1);
+  display: flex;
+  justify-content: center;
+  animation: slideUp 500ms var(--ease-out-mechanical) both;
+  animation-delay: 600ms;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Form ─────────────────────────────────────────────────────── */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 480px;
+}
+
+.prompt {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 230, 225, 0.32);
+  margin: 0;
+  text-align: center;
+}
+
+.inputRow {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+}
+
+.emailInput {
+  flex: 1;
+  min-width: 0;
+  background: rgba(232, 230, 225, 0.04);
+  border: 1px solid rgba(201, 163, 107, 0.22);
+  border-radius: 2px;
+  padding: 9px 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--rhodium);
+  outline: none;
+  transition:
+    border-color var(--duration-fast),
+    background var(--duration-fast);
+}
+
+.emailInput::placeholder {
+  color: rgba(232, 230, 225, 0.22);
+}
+
+.emailInput:focus {
+  border-color: rgba(201, 163, 107, 0.5);
+  background: rgba(232, 230, 225, 0.06);
+}
+
+.sendBtn {
+  padding: 9px 20px;
+  border: 1px solid rgba(201, 163, 107, 0.4);
+  border-radius: 2px;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--or-rose);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition:
+    border-color var(--duration-fast),
+    background var(--duration-fast);
+}
+
+.sendBtn:hover:not(:disabled) {
+  border-color: var(--or-rose);
+  background: rgba(201, 163, 107, 0.06);
+}
+
+.sendBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ─── Confirmation / error ─────────────────────────────────────── */
+
+.confirmation {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(201, 163, 107, 0.72);
+  margin: 0;
+  text-align: center;
+  padding: 12px 0;
+}
+
+.error {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rubis, #b11e2f);
+  margin: 0;
+}
+
+/* ─── Signed-in user bar ───────────────────────────────────────── */
+
+.userBar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.userEmail {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: rgba(232, 230, 225, 0.3);
+}
+
+.signOutBtn {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 230, 225, 0.22);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--duration-fast);
+}
+
+.signOutBtn:hover {
+  color: rgba(232, 230, 225, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gate {
+    animation: none;
+  }
+}

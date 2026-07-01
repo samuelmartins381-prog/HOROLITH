@@ -4,6 +4,7 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { usePackStore } from "@/src/state/pack-store";
 import { useCollectionStore } from "@/src/state/collection-store";
+import { useAuthStore } from "@/src/state/auth-store";
 import { createGachaEngine } from "@/src/game/gacha/engine";
 import { GACHA_POOL } from "@/src/game/gacha/pool-builder";
 import { RARITY_ORDER } from "@/src/game/canon/rarities";
@@ -26,6 +27,7 @@ import HoldToSkip from "./HoldToSkip";
 import styles from "./pack-opening.module.css";
 
 type Phase = "idle" | "unsealing" | "revealing" | "resolved";
+type PaymentMethod = "sceaux" | "lingots" | "daily";
 
 const CARD_BY_ID: Record<string, Card> = Object.fromEntries(
   SEED_CARDS.map((c) => [c.id, c])
@@ -45,12 +47,13 @@ export default function PackOpeningScene() {
   const [sortedCards, setSortedCards] = useState<Card[]>([]);
   const [revealedCount, setRevealedCount] = useState(0);
 
-  // Stable ref for the auto-reveal scheduling function
   const scheduleRef = useRef<((fromIndex: number, delay: number) => void) | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const skippedRef = useRef(false);
   const resultsRef = useRef<CardResult[]>([]);
+  const rollingRef = useRef(false);
 
+  // ── Store selectors ──────────────────────────────────────────────
   const wallet = usePackStore((s) => s.wallet);
   const pityState = usePackStore((s) => s.pityState);
   const pendingDailyPacks = usePackStore((s) => s.pendingDailyPacks);
@@ -58,13 +61,23 @@ export default function PackOpeningScene() {
   const canAffordLingots = usePackStore((s) => s.canAffordLingots);
   const spendSceaux = usePackStore((s) => s.spendSceaux);
   const spendLingots = usePackStore((s) => s.spendLingots);
-  const claimDailyPack = usePackStore((s) => s.claimDailyPack);
+  const spendDailyPack = usePackStore((s) => s.spendDailyPack);
+  const accrueDailyPacks = usePackStore((s) => s.accrueDailyPacks);
   const updatePity = usePackStore((s) => s.updatePity);
   const addEclats = usePackStore((s) => s.addEclats);
+  const hydratePackStore = usePackStore((s) => s.hydrate);
 
   const owned = useCollectionStore((s) => s.owned);
   const addCards = useCollectionStore((s) => s.addCards);
 
+  const user = useAuthStore((s) => s.user);
+
+  // ── Daily pack accrual (guest mode) ─────────────────────────────
+  useEffect(() => {
+    accrueDailyPacks();
+  }, [accrueDailyPacks]);
+
+  // ── Timer management ────────────────────────────────────────────
   const clearTimer = useCallback(() => {
     if (timerRef.current !== null) {
       clearTimeout(timerRef.current);
@@ -72,7 +85,6 @@ export default function PackOpeningScene() {
     }
   }, []);
 
-  // Build the schedule function whenever results stabilise
   useEffect(() => {
     scheduleRef.current = (fromIndex: number, delay: number) => {
       clearTimer();
@@ -90,18 +102,14 @@ export default function PackOpeningScene() {
     };
   }, [clearTimer]);
 
-  // Start auto-reveal when phase becomes "revealing"
   useEffect(() => {
     if (phase !== "revealing") return;
-    if (skippedRef.current) return; // skip mode handles itself
-
+    if (skippedRef.current) return;
     setRevealedCount(0);
     scheduleRef.current?.(0, REVEAL_INITIAL_MS);
-
     return () => clearTimer();
   }, [phase, clearTimer]);
 
-  // Commit cards + éclats to stores on resolution
   useEffect(() => {
     if (phase !== "resolved") return;
     const rs = resultsRef.current;
@@ -120,52 +128,118 @@ export default function PackOpeningScene() {
     };
   }, [clearTimer]);
 
+  // ── Internal helpers ─────────────────────────────────────────────
+
+  const applyResults = useCallback((sorted: CardResult[]) => {
+    const cardObjects = sorted.map((r) => CARD_BY_ID[r.cardId]).filter(Boolean) as Card[];
+    resultsRef.current = sorted;
+    setResults(sorted);
+    setSortedCards(cardObjects);
+    skippedRef.current = false;
+    setPhase("unsealing");
+    accelerateTicking(160);
+  }, []);
+
   // ── Pack roll ────────────────────────────────────────────────────
   const rollPack = useCallback(
-    (pay: "sceaux" | "lingots" | "daily") => {
-      if (phase !== "idle") return;
+    async (pay: PaymentMethod) => {
+      if (phase !== "idle" || rollingRef.current) return;
+      rollingRef.current = true;
 
-      if (pay === "sceaux") {
-        if (!canAffordSceaux()) return;
-        spendSceaux();
-      } else if (pay === "lingots") {
-        if (!canAffordLingots()) return;
-        spendLingots();
-      } else {
-        if (!claimDailyPack()) return;
+      try {
+        if (user) {
+          // ── Server mode — authenticated, anti-cheat ────────────
+          accelerateTicking(140);
+
+          const response = await fetch("/api/pack/open", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ paymentMethod: pay }),
+          });
+
+          if (!response.ok) {
+            startTicking(80);
+            rollingRef.current = false;
+            return;
+          }
+
+          const data = (await response.json()) as {
+            cards: CardResult[];
+            pityState: { goWithout: number; guaranteedRateUp: boolean };
+            wallet: {
+              sceaux: number;
+              lingots: number;
+              eclats: number;
+              pendingDailyPacks: number;
+              lastDailyPackAt: number;
+            };
+          };
+
+          hydratePackStore({
+            wallet: {
+              sceaux: data.wallet.sceaux,
+              lingots: data.wallet.lingots,
+              eclats: data.wallet.eclats,
+            },
+            pityState: data.pityState,
+            pendingDailyPacks: data.wallet.pendingDailyPacks,
+            lastDailyPackAt: data.wallet.lastDailyPackAt,
+          });
+
+          applyResults(sortWorstToBest(data.cards));
+        } else {
+          // ── Guest mode — local gacha roll ──────────────────────
+          if (pay === "sceaux") {
+            if (!canAffordSceaux()) {
+              rollingRef.current = false;
+              return;
+            }
+            spendSceaux();
+          } else if (pay === "lingots") {
+            if (!canAffordLingots()) {
+              rollingRef.current = false;
+              return;
+            }
+            spendLingots();
+          } else {
+            if (!spendDailyPack()) {
+              rollingRef.current = false;
+              return;
+            }
+          }
+
+          const engine = createGachaEngine(Date.now());
+          const ownedSet = new Set(
+            Object.keys(owned).filter((id) => (owned[id] ?? 0) > 0)
+          );
+          const { cards: raw, nextPityState } = engine.openPack(
+            GACHA_POOL,
+            ownedSet,
+            pityState
+          );
+
+          updatePity(nextPityState);
+          applyResults(sortWorstToBest(raw));
+        }
+      } catch {
+        startTicking(80);
       }
 
-      const engine = createGachaEngine(Date.now());
-      const ownedSet = new Set(Object.keys(owned).filter((id) => (owned[id] ?? 0) > 0));
-      const { cards: raw, nextPityState } = engine.openPack(
-        GACHA_POOL,
-        ownedSet,
-        pityState
-      );
-
-      const sorted = sortWorstToBest(raw);
-      const cardObjects = sorted
-        .map((r) => CARD_BY_ID[r.cardId])
-        .filter(Boolean) as Card[];
-
-      resultsRef.current = sorted;
-      updatePity(nextPityState);
-      setResults(sorted);
-      setSortedCards(cardObjects);
-      skippedRef.current = false;
-      setPhase("unsealing");
-      accelerateTicking(160);
+      rollingRef.current = false;
     },
     [
       phase,
+      user,
       canAffordSceaux,
       canAffordLingots,
       spendSceaux,
       spendLingots,
-      claimDailyPack,
+      spendDailyPack,
       owned,
       pityState,
       updatePity,
+      hydratePackStore,
+      applyResults,
     ]
   );
 
@@ -207,7 +281,7 @@ export default function PackOpeningScene() {
     }
 
     setRevealedCount(rs.length);
-    setPhase("revealing"); // ensure cards area is visible if skipping from unsealing
+    setPhase("revealing");
 
     timerRef.current = setTimeout(() => {
       setPhase("resolved");
@@ -225,7 +299,8 @@ export default function PackOpeningScene() {
     setRevealedCount(0);
     setPhase("idle");
     startTicking(80);
-  }, [clearTimer]);
+    accrueDailyPacks();
+  }, [clearTimer, accrueDailyPacks]);
 
   const showCoffret = phase === "idle" || phase === "unsealing";
   const showCards = phase === "revealing" || phase === "resolved";

@@ -11,6 +11,8 @@ type CollectionState = {
   addCard: (cardId: string) => void;
   addCards: (cardIds: string[]) => void;
   markSeen: (cardId: string) => void;
+  /** Replace owned map with authoritative server data (clears newIds). */
+  hydrate: (owned: Record<string, number>) => void;
   getOwnedCards: () => Card[];
   getTotalCount: () => number;
 };
@@ -46,6 +48,8 @@ export const useCollectionStore = create<CollectionState>()(
 
       markSeen: (cardId) =>
         set((s) => ({ newIds: s.newIds.filter((id) => id !== cardId) })),
+
+      hydrate: (owned) => set({ owned, newIds: [] }),
 
       getOwnedCards: () => {
         const { owned } = get();
