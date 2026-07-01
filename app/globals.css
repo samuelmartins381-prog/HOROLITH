@@ -55,15 +55,15 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
 body {
-  background-color: var(--obsidian);
-  color: var(--rhodium);
+  background-color: var(--porcelain);
+  color: var(--ink);
   font-family: var(--font-body);
   font-size: var(--text-base);
   line-height: var(--leading-body);
@@ -73,7 +73,7 @@ body {
 /* ─── Focus ───────────────────────────────────────────────────── */
 
 :focus-visible {
-  outline: 2px solid var(--or-rose);
+  outline: 2px solid var(--champagne);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }
@@ -81,8 +81,8 @@ body {
 /* ─── Selection ───────────────────────────────────────────────── */
 
 ::selection {
-  background: rgba(201, 163, 107, 0.25);
-  color: var(--rhodium);
+  background: rgba(200, 165, 90, 0.22);
+  color: var(--ink);
 }
 
 /* ─── Scrollbar ───────────────────────────────────────────────── */
@@ -102,7 +102,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(232, 230, 225, 0.15);
+  background: rgba(28, 26, 23, 0.2);
 }
 
 /* ─── Skip-to-content link (a11y) ────────────────────────────── */
@@ -112,8 +112,8 @@ body {
   top: -100%;
   left: var(--space-4);
   z-index: 9999;
-  background: var(--obsidian);
-  color: var(--rhodium);
+  background: var(--porcelain);
+  color: var(--ink);
   border: var(--border-subtle);
   padding: var(--space-2) var(--space-4);
   font-family: var(--font-mono);
@@ -125,7 +125,7 @@ body {
 
 .skip-link:focus {
   top: var(--space-4);
-  outline: 2px solid var(--or-rose);
+  outline: 2px solid var(--champagne);
   outline-offset: 2px;
 }
 

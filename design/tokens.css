@@ -1,56 +1,77 @@
-/* Horolith Design Tokens
+/* Horolith Design Tokens — Light Theme
    Single source of truth for all design values.
    Import in globals.css before Tailwind. */
 
 :root {
-  /* ─── Palette ─────────────────────────────────────────────── */
-  --obsidian: #0b0c0e;
-  --obsidian-soft: #141518;
-  --blued-steel-deep: #1e3a5f;
-  --blued-steel: #2c5a8c;
-  --rhodium: #e8e6e1;
-  --rhodium-soft: rgba(232, 230, 225, 0.6);
-  --rhodium-muted: #a8a49d;
-  --or-rose: #c9a36b;
-  --or-rose-deep: #9c7a48;
-  --rubis-deep: #7a1220;
-  --rubis: #b11e2f;
-  --lume: #c8d9c0;
+  /* ─── Canonical light palette ────────────────────────────────── */
+  --porcelain: #f7f5f0;
+  --ivory: #efeae0;
+  --ivory-deep: #e8e2d5;
+  --ink: #1c1a17;
+  --ink-muted: #6b6560;
+  --champagne: #c8a55a;
+  --champagne-deep: #a8853e;
+  --horizon: #a8c4d4;
+  --horizon-deep: #7a9eb8;
+  --garnet: #7a2e3a;
+  --garnet-deep: #5e1f28;
+  --lume: #8ec4b0;
 
-  /* Surface layers */
-  --surface-0: #0b0c0e; /* obsidian */
-  --surface-1: #111214;
-  --surface-2: #18191c;
-  --surface-3: #1f2025;
+  /* ─── Compatibility aliases (existing names → light values) ─── */
+  --obsidian: #f7f5f0;
+  --obsidian-soft: #efeae0;
+  --blued-steel-deep: #a8c4d4;
+  --blued-steel: #8aabbd;
+  --rhodium: #1c1a17;
+  --rhodium-soft: rgba(28, 26, 23, 0.6);
+  --rhodium-muted: #6b6560;
+  --or-rose: #c8a55a;
+  --or-rose-deep: #a8853e;
+  --rubis-deep: #5e1f28;
+  --rubis: #7a2e3a;
 
-  /* ─── Tier accent colors — Les 6 Niveaux de Création ─────── */
-  --tier-ebauche: #c8c5bd;
-  --tier-emergence: #2d7a4f;
-  --tier-maitrise: #c9a36b;
-  --tier-virtuosite: #7b5ea7;
-  --tier-grande-oeuvre: #a0242f;
-  --tier-opus-aeternum: #a8c8ff;
+  /* Surface layers (light, warm) */
+  --surface-0: #f7f5f0;
+  --surface-1: #efeae0;
+  --surface-2: #e8e2d5;
+  --surface-3: #ddd5c8;
 
-  /* Tier glows (used in box-shadow) */
-  --tier-glow-ebauche: rgba(200, 197, 189, 0.06);
-  --tier-glow-emergence: rgba(45, 122, 79, 0.1);
-  --tier-glow-maitrise: rgba(201, 163, 107, 0.18);
-  --tier-glow-virtuosite: rgba(123, 94, 167, 0.18);
-  --tier-glow-grande-oeuvre: rgba(160, 36, 47, 0.22);
-  --tier-glow-opus-aeternum: rgba(168, 200, 255, 0.28);
+  /* ─── Tier accent colors — Les 6 Niveaux de Création ─────────
+     Values chosen for legibility on light ivory backgrounds.     */
+  --tier-ebauche: #8b8880;
+  --tier-emergence: #2a7045;
+  --tier-maitrise: #b8924a;
+  --tier-virtuosite: #6b4e9a;
+  --tier-grande-oeuvre: #8c1f2a;
+  --tier-opus-aeternum: #1e4d7a;
 
-  /* ─── House accent colors — Les 8 Maisons ─────────────────── */
-  --house-valther: #b8b5b0;
-  --house-orvain: #8899a8;
-  --house-belvor: #c4a355;
-  --house-caelis: #3a6b9e;
-  --house-merian: #7a9ab0;
-  --house-ferrand: #6a7080;
-  --house-aurell: #5b7ec4;
-  --house-corven: #a09890;
+  /* Tier glows (box-shadow) */
+  --tier-glow-ebauche: rgba(139, 136, 128, 0.08);
+  --tier-glow-emergence: rgba(42, 112, 69, 0.12);
+  --tier-glow-maitrise: rgba(184, 146, 74, 0.2);
+  --tier-glow-virtuosite: rgba(107, 78, 154, 0.18);
+  --tier-glow-grande-oeuvre: rgba(140, 31, 42, 0.2);
+  --tier-glow-opus-aeternum: rgba(30, 77, 122, 0.22);
 
-  /* ─── Typography scale ────────────────────────────────────── */
-  /* These vars are populated by next/font at runtime */
+  /* Tier light-leak reveals (pack opening) */
+  --tier-leak-emergence: rgba(180, 230, 200, 0.55);
+  --tier-leak-maitrise: rgba(255, 235, 185, 0.65);
+  --tier-leak-virtuosite: rgba(210, 190, 255, 0.6);
+  --tier-leak-grande-oeuvre: rgba(255, 185, 190, 0.6);
+  --tier-leak-opus-aeternum: rgba(160, 200, 240, 0.75);
+
+  /* ─── House accent colors — Les 8 Maisons ─────────────────────
+     Darkened versions for legibility on light backgrounds.       */
+  --house-valther: #6e6b66;
+  --house-orvain: #4a6878;
+  --house-belvor: #9a7a35;
+  --house-caelis: #2a5180;
+  --house-merian: #4a7080;
+  --house-ferrand: #4a5060;
+  --house-aurell: #3a60a8;
+  --house-corven: #6a6058;
+
+  /* ─── Typography scale ────────────────────────────────────────── */
   --font-display: var(--font-bodoni-moda, "Palatino Linotype", Georgia, serif);
   --font-body: var(--font-inter-tight, "Helvetica Neue", Arial, sans-serif);
   --font-mono: var(--font-ibm-plex-mono, "Fira Code", "Courier New", monospace);
@@ -84,7 +105,7 @@
   --tracking-wider: 0.12em;
   --tracking-widest: 0.2em;
 
-  /* ─── Spacing ─────────────────────────────────────────────── */
+  /* ─── Spacing ─────────────────────────────────────────────────── */
   --space-px: 1px;
   --space-0-5: 0.125rem;
   --space-1: 0.25rem;
@@ -104,15 +125,14 @@
   --space-48: 12rem;
   --space-64: 16rem;
 
-  /* ─── Border radius ───────────────────────────────────────── */
+  /* ─── Border radius ───────────────────────────────────────────── */
   --radius-none: 0;
   --radius-sm: 2px;
   --radius-md: 4px;
   --radius-card: 8px;
   --radius-lg: 12px;
 
-  /* ─── Motion ──────────────────────────────────────────────── */
-  /* Mechanical beat: ~4 Hz = 250ms per alternance */
+  /* ─── Motion ──────────────────────────────────────────────────── */
   --beat: 250ms;
   --beat-2: 500ms;
   --beat-4: 1000ms;
@@ -124,24 +144,24 @@
   --duration-reveal: 1200ms;
   --duration-cinematic: 2400ms;
 
-  /* Eases that feel mechanical, not springy */
   --ease-out-mechanical: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-mechanical: cubic-bezier(0.64, 0, 0.78, 0);
   --ease-inout-mechanical: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* ─── Borders ─────────────────────────────────────────────── */
-  --border-hairline: 1px solid rgba(232, 230, 225, 0.08);
-  --border-subtle: 1px solid rgba(232, 230, 225, 0.15);
-  --border-or-rose: 1px solid rgba(201, 163, 107, 0.3);
+  /* ─── Borders ─────────────────────────────────────────────────── */
+  --border-hairline: 1px solid rgba(28, 26, 23, 0.07);
+  --border-subtle: 1px solid rgba(28, 26, 23, 0.12);
+  --border-or-rose: 1px solid rgba(200, 165, 90, 0.32);
 
-  /* ─── Shadows ─────────────────────────────────────────────── */
-  --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.4);
-  --shadow-card-hover: 0 8px 32px rgba(0, 0, 0, 0.7), 0 2px 8px rgba(201, 163, 107, 0.12);
-  --shadow-or-rose: 0 0 24px rgba(201, 163, 107, 0.2);
-  --shadow-lume: 0 0 40px rgba(200, 217, 192, 0.35);
+  /* ─── Shadows (warm, soft — no heavy darks) ──────────────────── */
+  --shadow-card: 0 2px 16px rgba(28, 26, 23, 0.1), 0 1px 4px rgba(28, 26, 23, 0.06);
+  --shadow-card-hover:
+    0 8px 32px rgba(28, 26, 23, 0.14), 0 2px 8px rgba(200, 165, 90, 0.18);
+  --shadow-or-rose: 0 0 24px rgba(200, 165, 90, 0.22);
+  --shadow-lume: 0 0 40px rgba(142, 196, 176, 0.3);
 
-  /* ─── Z-index ─────────────────────────────────────────────── */
+  /* ─── Z-index ─────────────────────────────────────────────────── */
   --z-base: 0;
   --z-raised: 10;
   --z-overlay: 100;

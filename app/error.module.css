@@ -5,12 +5,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--obsidian);
+  background: var(--porcelain);
   background-image: repeating-conic-gradient(
-    rgba(232, 230, 225, 0.007) 0deg,
+    rgba(28, 26, 23, 0.007) 0deg,
     transparent 0.4deg,
     transparent 2deg,
-    rgba(232, 230, 225, 0.007) 2.4deg
+    rgba(28, 26, 23, 0.007) 2.4deg
   );
   padding: 2rem;
 }
@@ -27,7 +27,7 @@
   font-family: var(--font-mono);
   font-size: clamp(4rem, 12vw, 7rem);
   font-weight: 300;
-  color: rgba(232, 230, 225, 0.06);
+  color: rgba(28, 26, 23, 0.06);
   letter-spacing: 0.3em;
   margin: 0;
   line-height: 1;
@@ -39,7 +39,7 @@
   font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
   font-weight: 400;
   font-style: italic;
-  color: var(--rhodium);
+  color: var(--ink);
   margin: 0;
   letter-spacing: 0.06em;
 }
@@ -47,7 +47,7 @@
 .body {
   font-family: var(--font-body);
   font-size: var(--text-sm);
-  color: var(--rhodium-muted);
+  color: var(--ink-muted);
   max-width: 300px;
   line-height: var(--leading-relaxed);
   margin: 0;
@@ -57,7 +57,7 @@
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-wide);
-  color: rgba(201, 163, 107, 0.5);
+  color: rgba(200, 165, 90, 0.55);
   text-decoration: none;
   background: none;
   border: none;
@@ -68,5 +68,5 @@
 }
 
 .back:hover {
-  color: rgba(201, 163, 107, 0.85);
+  color: rgba(200, 165, 90, 0.88);
 }

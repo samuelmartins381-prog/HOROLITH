@@ -48,7 +48,7 @@
   font-size: var(--text-2xs);
   letter-spacing: var(--tracking-widest);
   text-transform: uppercase;
-  color: rgba(201, 163, 107, 0.42);
+  color: rgba(200, 165, 90, 0.5);
   margin: 0;
 }
 
@@ -58,7 +58,7 @@
   font-weight: 400;
   font-style: italic;
   letter-spacing: 0.16em;
-  color: var(--rhodium);
+  color: var(--ink);
   line-height: var(--leading-display);
   text-transform: uppercase;
   margin: 0;
@@ -68,7 +68,7 @@
   width: 2.5rem;
   height: 1px;
   background: var(--or-rose);
-  opacity: 0.48;
+  opacity: 0.52;
   flex-shrink: 0;
 }
 
@@ -77,7 +77,7 @@
   font-size: var(--text-sm);
   font-weight: 300;
   letter-spacing: var(--tracking-wider);
-  color: var(--rhodium-muted);
+  color: var(--ink-muted);
   text-transform: uppercase;
   margin: 0;
 }
@@ -87,14 +87,14 @@
 .quote {
   margin: var(--space-6) 0 0;
   padding-left: var(--space-4);
-  border-left: 1px solid rgba(232, 230, 225, 0.08);
+  border-left: 1px solid rgba(28, 26, 23, 0.1);
 }
 
 .quoteText {
   font-family: var(--font-display);
   font-size: var(--text-sm);
   font-style: italic;
-  color: rgba(232, 230, 225, 0.42);
+  color: rgba(28, 26, 23, 0.42);
   margin: 0 0 var(--space-1);
   line-height: 1.55;
 }
@@ -102,7 +102,7 @@
 .quoteSource {
   font-family: var(--font-mono);
   font-size: var(--text-2xs);
-  color: rgba(201, 163, 107, 0.38);
+  color: rgba(200, 165, 90, 0.42);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -114,7 +114,7 @@
   font-size: var(--text-2xs);
   letter-spacing: var(--tracking-wider);
   text-transform: uppercase;
-  color: rgba(232, 230, 225, 0.14);
+  color: rgba(28, 26, 23, 0.15);
   margin: 0;
 }
 
@@ -136,7 +136,7 @@
   color: var(--or-rose);
   text-decoration: none;
   padding: var(--space-3) var(--space-6);
-  border: 1px solid rgba(201, 163, 107, 0.45);
+  border: 1px solid rgba(200, 165, 90, 0.45);
   transition:
     border-color 150ms ease,
     color 150ms ease,
@@ -145,20 +145,20 @@
 
 .ctaPrimary:hover {
   border-color: var(--or-rose);
-  background: rgba(201, 163, 107, 0.06);
+  background: rgba(200, 165, 90, 0.07);
 }
 
 .ctaSecondary {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-wide);
-  color: rgba(232, 230, 225, 0.28);
+  color: rgba(28, 26, 23, 0.3);
   text-decoration: none;
   transition: color 120ms ease;
 }
 
 .ctaSecondary:hover {
-  color: rgba(232, 230, 225, 0.55);
+  color: rgba(28, 26, 23, 0.6);
 }
 
 /* ─── Card stage ─────────────────────────────────────────────── */
@@ -184,14 +184,14 @@
   height: 5px;
   border-radius: 50%;
   background: var(--or-rose);
-  opacity: 0.6;
+  opacity: 0.65;
   flex-shrink: 0;
 }
 
 .footerLabel {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: rgba(232, 230, 225, 0.28);
+  color: rgba(28, 26, 23, 0.3);
   letter-spacing: var(--tracking-wide);
 }
 
@@ -212,7 +212,7 @@
   .quote {
     border-left: none;
     padding-left: 0;
-    border-top: 1px solid rgba(232, 230, 225, 0.08);
+    border-top: 1px solid rgba(28, 26, 23, 0.1);
     padding-top: var(--space-4);
   }
 }

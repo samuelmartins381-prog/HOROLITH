@@ -17,13 +17,13 @@
   font-size: 8px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(232, 230, 225, 0.28);
+  color: rgba(28, 26, 23, 0.3);
   transition: color 150ms;
 }
 
 .btn:active .label,
 .btn:focus-visible .label {
-  color: rgba(232, 230, 225, 0.55);
+  color: rgba(28, 26, 23, 0.6);
 }
 
 .btn:focus-visible {
@@ -31,7 +31,7 @@
 }
 
 .btn:focus-visible .ring {
-  filter: drop-shadow(0 0 4px rgba(201, 163, 107, 0.4));
+  filter: drop-shadow(0 0 4px rgba(200, 165, 90, 0.45));
 }
 
 @media (prefers-reduced-motion: reduce) {

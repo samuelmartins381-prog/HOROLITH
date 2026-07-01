@@ -9,11 +9,11 @@
   padding: 18px 24px;
   background: linear-gradient(
     180deg,
-    rgba(11, 12, 14, 0) 0%,
-    rgba(11, 12, 14, 0.92) 30%,
-    rgba(11, 12, 14, 0.98) 100%
+    rgba(247, 245, 240, 0) 0%,
+    rgba(247, 245, 240, 0.94) 30%,
+    rgba(247, 245, 240, 0.99) 100%
   );
-  border-top: 1px solid rgba(201, 163, 107, 0.1);
+  border-top: 1px solid rgba(200, 165, 90, 0.14);
   display: flex;
   justify-content: center;
   animation: slideUp 500ms var(--ease-out-mechanical) both;
@@ -47,7 +47,7 @@
   font-size: 8.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(232, 230, 225, 0.32);
+  color: rgba(28, 26, 23, 0.36);
   margin: 0;
   text-align: center;
 }
@@ -62,14 +62,14 @@
 .emailInput {
   flex: 1;
   min-width: 0;
-  background: rgba(232, 230, 225, 0.04);
-  border: 1px solid rgba(201, 163, 107, 0.22);
+  background: rgba(28, 26, 23, 0.04);
+  border: 1px solid rgba(200, 165, 90, 0.24);
   border-radius: 2px;
   padding: 9px 12px;
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.08em;
-  color: var(--rhodium);
+  color: var(--ink);
   outline: none;
   transition:
     border-color var(--duration-fast),
@@ -77,17 +77,17 @@
 }
 
 .emailInput::placeholder {
-  color: rgba(232, 230, 225, 0.22);
+  color: rgba(28, 26, 23, 0.26);
 }
 
 .emailInput:focus {
-  border-color: rgba(201, 163, 107, 0.5);
-  background: rgba(232, 230, 225, 0.06);
+  border-color: rgba(200, 165, 90, 0.55);
+  background: rgba(28, 26, 23, 0.06);
 }
 
 .sendBtn {
   padding: 9px 20px;
-  border: 1px solid rgba(201, 163, 107, 0.4);
+  border: 1px solid rgba(200, 165, 90, 0.4);
   border-radius: 2px;
   background: transparent;
   font-family: var(--font-mono);
@@ -105,7 +105,7 @@
 
 .sendBtn:hover:not(:disabled) {
   border-color: var(--or-rose);
-  background: rgba(201, 163, 107, 0.06);
+  background: rgba(200, 165, 90, 0.07);
 }
 
 .sendBtn:disabled {
@@ -120,7 +120,7 @@
   font-size: 9px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(201, 163, 107, 0.72);
+  color: rgba(200, 165, 90, 0.8);
   margin: 0;
   text-align: center;
   padding: 12px 0;
@@ -131,7 +131,7 @@
   font-size: 8px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--rubis, #b11e2f);
+  color: var(--rubis, #7a2e3a);
   margin: 0;
 }
 
@@ -147,7 +147,7 @@
   font-family: var(--font-mono);
   font-size: 8px;
   letter-spacing: 0.14em;
-  color: rgba(232, 230, 225, 0.3);
+  color: rgba(28, 26, 23, 0.35);
 }
 
 .signOutBtn {
@@ -155,7 +155,7 @@
   font-size: 8px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(232, 230, 225, 0.22);
+  color: rgba(28, 26, 23, 0.26);
   background: none;
   border: none;
   cursor: pointer;
@@ -164,7 +164,7 @@
 }
 
 .signOutBtn:hover {
-  color: rgba(232, 230, 225, 0.5);
+  color: rgba(28, 26, 23, 0.55);
 }
 
 @media (prefers-reduced-motion: reduce) {

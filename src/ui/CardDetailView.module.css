@@ -12,14 +12,14 @@
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-wide);
-  color: rgba(232, 230, 225, 0.28);
+  color: rgba(28, 26, 23, 0.32);
   text-decoration: none;
   align-self: flex-start;
   transition: color 120ms ease;
 }
 
 .back:hover {
-  color: rgba(232, 230, 225, 0.65);
+  color: rgba(28, 26, 23, 0.65);
 }
 
 /* ─── Two-column layout ──────────────────────────────────── */
@@ -64,7 +64,7 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--house-color, #c9a36b);
+  background: var(--house-color, #c8a55a);
   flex-shrink: 0;
 }
 
@@ -73,7 +73,7 @@
   font-size: var(--text-xs);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--house-color, #c9a36b);
+  color: var(--house-color, #c8a55a);
   opacity: 0.85;
 }
 
@@ -83,9 +83,9 @@
   font-size: 7.5px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--tier-color, #c9a36b);
+  color: var(--tier-color, #c8a55a);
   padding: 2px 7px;
-  border: 1px solid var(--tier-color, #c9a36b);
+  border: 1px solid var(--tier-color, #c8a55a);
   border-radius: 1px;
 }
 
@@ -94,7 +94,7 @@
   font-size: clamp(1.6rem, 4vw, 2.4rem);
   font-weight: 400;
   font-style: italic;
-  color: var(--rhodium);
+  color: var(--ink);
   margin: 0;
   line-height: 1.08;
   letter-spacing: -0.01em;
@@ -103,7 +103,7 @@
 .ref {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: rgba(232, 230, 225, 0.28);
+  color: rgba(28, 26, 23, 0.3);
   letter-spacing: 0.08em;
   margin: 0;
 }
@@ -113,7 +113,7 @@
 .lore {
   margin: 0;
   padding-left: 1rem;
-  border-left: 1px solid rgba(232, 230, 225, 0.1);
+  border-left: 1px solid rgba(28, 26, 23, 0.1);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -123,7 +123,7 @@
   font-family: var(--font-display);
   font-size: var(--text-base);
   font-style: italic;
-  color: rgba(232, 230, 225, 0.55);
+  color: rgba(28, 26, 23, 0.55);
   line-height: 1.6;
   margin: 0;
 }
@@ -131,7 +131,7 @@
 .loreSource {
   font-family: var(--font-mono);
   font-size: var(--text-2xs);
-  color: rgba(201, 163, 107, 0.42);
+  color: rgba(200, 165, 90, 0.48);
   letter-spacing: 0.1em;
 }
 
@@ -142,8 +142,8 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(232, 230, 225, 0.1) 30%,
-    rgba(232, 230, 225, 0.1) 70%,
+    rgba(28, 26, 23, 0.1) 30%,
+    rgba(28, 26, 23, 0.1) 70%,
     transparent 100%
   );
 }
@@ -169,13 +169,13 @@
   font-size: var(--text-2xs);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(232, 230, 225, 0.26);
+  color: rgba(28, 26, 23, 0.28);
 }
 
 .specValue {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: rgba(232, 230, 225, 0.55);
+  color: rgba(28, 26, 23, 0.55);
   letter-spacing: 0.05em;
   text-align: right;
 }
@@ -193,7 +193,7 @@
   font-size: var(--text-2xs);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(232, 230, 225, 0.26);
+  color: rgba(28, 26, 23, 0.28);
 }
 
 .complicationsList {
@@ -209,9 +209,9 @@
   font-family: var(--font-mono);
   font-size: 7.5px;
   letter-spacing: 0.06em;
-  color: rgba(232, 230, 225, 0.45);
+  color: rgba(28, 26, 23, 0.48);
   padding: 3px 8px;
-  border: 1px solid rgba(232, 230, 225, 0.09);
+  border: 1px solid rgba(28, 26, 23, 0.1);
   border-radius: 1px;
 }
 
