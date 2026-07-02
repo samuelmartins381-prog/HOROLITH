@@ -48,6 +48,15 @@ const SPARKLES = Array.from({ length: 72 }, (_, i) => {
   };
 });
 
+/* Cadran soleillé — brushed rays from the centre (§3 matières) */
+const SUNRAYS = Array.from({ length: 48 }, (_, i) => {
+  const rad = (i * 7.5 * Math.PI) / 180;
+  return {
+    x2: +(100 + 86 * Math.cos(rad)).toFixed(3),
+    y2: +(100 + 86 * Math.sin(rad)).toFixed(3),
+  };
+});
+
 /* Sub-seconds ticks at 6 o'clock sub-dial */
 const SUB_TICKS = Array.from({ length: 60 }, (_, i) => {
   const rad = ((i * 6 - 90) * Math.PI) / 180;
@@ -98,6 +107,19 @@ export default function WatchFace({ dial }: WatchFaceProps) {
 
       {/* Outer bezel */}
       <circle cx="100" cy="100" r="98" fill="url(#wf-bezel)" />
+
+      {/* Polished bezel glint — top-left catchlight */}
+      <circle
+        cx="100"
+        cy="100"
+        r="95.8"
+        fill="none"
+        stroke="rgba(255, 255, 255, 0.12)"
+        strokeWidth="1.4"
+        strokeDasharray="72 530"
+        strokeLinecap="round"
+        transform="rotate(-155 100 100)"
+      />
       <circle
         cx="100"
         cy="100"
@@ -122,6 +144,21 @@ export default function WatchFace({ dial }: WatchFaceProps) {
         r="87"
         fill={isAventurine ? "url(#wf-aventurine)" : "url(#wf-dial-default)"}
       />
+
+      {/* Soleillé brushing — subtle radial rays on plain dials */}
+      {!isAventurine &&
+        SUNRAYS.map((r, i) => (
+          <line
+            key={i}
+            x1="100"
+            y1="100"
+            x2={r.x2}
+            y2={r.y2}
+            stroke="rgba(255, 250, 235, 0.03)"
+            strokeWidth="1.7"
+            clipPath="url(#wf-clip)"
+          />
+        ))}
 
       {/* Aventurine sparkle particles */}
       {isAventurine &&

@@ -7,7 +7,7 @@ import { useEffect, useRef, useCallback, type RefObject } from "react";
    re-renders per pointer event, frame-rate-independent smoothing, and a
    mechanical settle back to rest when the pointer leaves. */
 
-const MAX_TILT = 10; // deg
+const MAX_TILT = 12; // deg
 const FOIL_TRAVEL = 28; // %
 const GLARE_TRAVEL = 34; // %
 const SMOOTHING = 0.16; // portion of remaining distance per 60 fps frame

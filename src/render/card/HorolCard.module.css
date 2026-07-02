@@ -7,14 +7,26 @@
   touch-action: pan-y;
 }
 
-/* ─── Card ───────────────────────────────────────────────────── */
+/* ─── Body — 3D slab that carries the tilt ───────────────────── */
 
-.card {
+.body {
   position: relative;
   width: 280px;
   height: 420px;
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg))
+    scale(var(--card-scale, 1));
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ─── Card — front face of the slab ──────────────────────────── */
+
+.card {
+  position: absolute;
+  inset: 0;
   border-radius: 10px;
   overflow: hidden;
+  transform: translateZ(7px);
 
   /* Warm ivory gradient — depth through value, not darkness */
   background: linear-gradient(
@@ -32,19 +44,85 @@
     0 1px 4px rgba(28, 26, 23, 0.07),
     0 0 40px var(--tier-glow, rgba(200, 165, 90, 0.12));
 
-  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg))
-    scale(var(--card-scale, 1));
-  transform-style: preserve-3d;
-  will-change: transform;
-
   display: flex;
   flex-direction: column;
   padding: 14px 13px 11px;
 }
 
+/* Engraved inner hairline frame */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(200, 165, 90, 0.24);
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+/* Guilloché micro-texture on the card stock */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 42%,
+    rgba(28, 26, 23, 0.014) 0deg 0.4deg,
+    transparent 0.4deg 2.2deg
+  );
+  pointer-events: none;
+}
+
+/* ─── Gilded slab edges (tranche dorée) ──────────────────────── */
+
+.edge {
+  position: absolute;
+  pointer-events: none;
+}
+
+.edgeLeft {
+  top: 9px;
+  bottom: 9px;
+  left: 0;
+  width: 7px;
+  transform-origin: left center;
+  transform: rotateY(-90deg);
+  background: linear-gradient(180deg, #ddbe80 0%, #a9853f 55%, #cfae67 100%);
+}
+
+.edgeRight {
+  top: 9px;
+  bottom: 9px;
+  right: 0;
+  width: 7px;
+  transform-origin: right center;
+  transform: rotateY(90deg);
+  background: linear-gradient(180deg, #ddbe80 0%, #a9853f 55%, #cfae67 100%);
+}
+
+.edgeTop {
+  left: 9px;
+  right: 9px;
+  top: 0;
+  height: 7px;
+  transform-origin: center top;
+  transform: rotateX(90deg);
+  background: linear-gradient(90deg, #cfae67 0%, #ecd39b 50%, #cfae67 100%);
+}
+
+.edgeBottom {
+  left: 9px;
+  right: 9px;
+  bottom: 0;
+  height: 7px;
+  transform-origin: center bottom;
+  transform: rotateX(-90deg);
+  background: linear-gradient(90deg, #b8934a 0%, #9a7a38 50%, #b8934a 100%);
+}
+
 /* Reduce motion */
 @media (prefers-reduced-motion: reduce) {
-  .card {
+  .body {
     transform: none !important;
     transition: none;
   }

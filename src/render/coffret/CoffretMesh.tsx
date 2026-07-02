@@ -1,38 +1,48 @@
 "use client";
 
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
+import { RoundedBox } from "@react-three/drei";
 import * as THREE from "three";
 
 const W = 4.0; // box width
-const H = 1.4; // box height
-const D = 2.2; // box depth
-const LID_T = 0.1; // lid thickness
-const OPEN_ANGLE = -Math.PI * 0.65;
+const H = 1.3; // base height
+const D = 2.3; // box depth
+const LID_T = 0.34; // lid thickness
+const OPEN_ANGLE = -Math.PI * 0.62;
 
-// Champagne trim helper: thin strip along the perimeter.
-// Moderate metalness + warm emissive so the gold reads without an
-// environment map (full metal renders black with no reflections).
-function GoldEdge({
-  args,
-  position,
-}: {
-  args: [number, number, number];
-  position: [number, number, number];
-}) {
-  return (
-    <mesh position={position} castShadow>
-      <boxGeometry args={args} />
-      <meshStandardMaterial
-        color="#c8a55a"
-        metalness={0.55}
-        roughness={0.25}
-        emissive="#8a6a2c"
-        emissiveIntensity={0.28}
-      />
-    </mesh>
-  );
-}
+/* Materials — shared instances, tuned for the studio Environment
+   set up in CoffretScene (reflections do the realism work). */
+
+const LACQUER = {
+  color: "#ece4d3",
+  roughness: 0.16,
+  metalness: 0.0,
+  clearcoat: 1,
+  clearcoatRoughness: 0.06,
+  envMapIntensity: 1.0,
+};
+
+const VELVET = {
+  color: "#3f0e15",
+  roughness: 1.0,
+  metalness: 0.0,
+  sheen: 0.8,
+  sheenRoughness: 0.55,
+  sheenColor: "#7e3240",
+  envMapIntensity: 0.3,
+};
+
+/* Gold reads through blurred env reflections (roughness) plus a hint
+   of emissive — polished pure metal with a sparse env renders black. */
+const GOLD = {
+  color: "#d4af63",
+  metalness: 1.0,
+  roughness: 0.32,
+  emissive: "#5c451e",
+  emissiveIntensity: 0.3,
+  envMapIntensity: 1.35,
+};
 
 interface CoffretMeshProps {
   isOpen: boolean;
@@ -79,11 +89,12 @@ export default function CoffretMesh({
     tl.to(root.scale, { y: 0.965, duration: 0.17, ease: "power2.in" })
       .to(root.scale, { y: 1, duration: 0.24, ease: "power2.out" })
       // beat of silence before the reveal (§16.8)
-      .to({}, { duration: 0.22 });
+      .to({}, { duration: 0.22 })
+      .addLabel("open");
 
     // B — the seam leaks light as the lid rises
     if (light) {
-      tl.to(light, { intensity: 1.5, duration: 0.55, ease: "power2.in" }, "open");
+      tl.to(light, { intensity: 1.6, duration: 0.55, ease: "power2.in" }, "open");
     }
 
     // C — lid opens slightly past its mark…
@@ -100,31 +111,17 @@ export default function CoffretMesh({
     };
   }, [isOpen]);
 
-  // Watch-slot cushion geometry (half-cylinder arch)
-  const slotGeo = useMemo(
-    () => new THREE.CylinderGeometry(0.19, 0.19, LID_T + 0.02, 24, 1, false, 0, Math.PI),
-    []
-  );
-
   return (
     <group ref={rootRef}>
-      {/* ── Base box — ivory lacquer (clearcoat = laque profonde) ── */}
-      <mesh castShadow receiveShadow>
-        <boxGeometry args={[W, H, D]} />
-        <meshPhysicalMaterial
-          color="#ece5d6"
-          roughness={0.32}
-          metalness={0.02}
-          clearcoat={0.55}
-          clearcoatRoughness={0.22}
-        />
-      </mesh>
+      {/* ── Base — ivory lacquer, softened edges ── */}
+      <RoundedBox args={[W, H, D]} radius={0.07} smoothness={6} castShadow receiveShadow>
+        <meshPhysicalMaterial {...LACQUER} />
+      </RoundedBox>
 
-      {/* Interior velvet floor — deep garnet, sits atop the base
-          so it reads as the lined interior once the lid opens */}
+      {/* Interior velvet bed — deep garnet, sits atop the base */}
       <mesh position={[0, H / 2 + 0.004, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[W - 0.1, D - 0.1]} />
-        <meshStandardMaterial color="#3a0d12" roughness={0.98} metalness={0.0} />
+        <planeGeometry args={[W - 0.24, D - 0.24]} />
+        <meshPhysicalMaterial {...VELVET} />
       </mesh>
 
       {/* Rarity tell light — hidden inside the box, ramps up on open */}
@@ -137,68 +134,74 @@ export default function CoffretMesh({
         color={leakColor}
       />
 
-      {/* Watch cushion slots */}
+      {/* Watch cushions — plump velvet capsules laid lengthwise */}
       {Array.from({ length: 5 }).map((_, i) => (
         <mesh
           key={i}
-          geometry={slotGeo}
-          position={[(i - 2) * 0.72, H / 2 + 0.006, 0]}
-          rotation={[Math.PI, 0, 0]}
+          position={[(i - 2) * 0.75, H / 2 + 0.09, 0]}
+          rotation={[Math.PI / 2, 0, 0]}
+          castShadow
         >
-          <meshStandardMaterial color="#2c080c" roughness={0.95} metalness={0.0} />
+          <capsuleGeometry args={[0.2, 0.85, 6, 18]} />
+          <meshPhysicalMaterial {...VELVET} />
         </mesh>
       ))}
 
-      {/* Gold trim — base top perimeter (frame, not slab: the
-          interior must stay visible once the lid opens) */}
-      <GoldEdge args={[W + 0.02, 0.022, 0.06]} position={[0, H / 2, D / 2]} />
-      <GoldEdge args={[W + 0.02, 0.022, 0.06]} position={[0, H / 2, -D / 2]} />
-      <GoldEdge args={[0.06, 0.022, D + 0.02]} position={[W / 2, H / 2, 0]} />
-      <GoldEdge args={[0.06, 0.022, D + 0.02]} position={[-W / 2, H / 2, 0]} />
-      {/* Gold trim — base bottom hairline */}
-      <GoldEdge args={[W + 0.02, 0.022, D + 0.02]} position={[0, -H / 2, 0]} />
+      {/* Piano hinge — polished gold bar along the back seam */}
+      <mesh position={[0, H / 2 + 0.02, -D / 2 + 0.02]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.038, 0.038, W - 0.55, 20]} />
+        <meshStandardMaterial {...GOLD} />
+      </mesh>
+
+      {/* Catch plate — under the fermoir, on the base front */}
+      <RoundedBox
+        args={[0.34, 0.11, 0.05]}
+        radius={0.015}
+        smoothness={4}
+        position={[0, H / 2 - 0.1, D / 2 + 0.015]}
+      >
+        <meshStandardMaterial {...GOLD} />
+      </RoundedBox>
 
       {/* ── Lid group — pivot at back-top edge ── */}
-      {/*   world position: (0, H/2, -D/2) — the hinge line           */}
       <group ref={lidGroupRef} position={[0, H / 2, -D / 2]}>
-        {/* Lid box: centered at (0, LID_T/2, D/2) in group-local space
-            so it spans from hinge (z=0) to front edge (z=D)           */}
-        <mesh position={[0, LID_T / 2, D / 2]} castShadow>
-          <boxGeometry args={[W, LID_T, D]} />
-          <meshPhysicalMaterial
-            color="#efe8d9"
-            roughness={0.3}
-            metalness={0.02}
-            clearcoat={0.55}
-            clearcoatRoughness={0.22}
-          />
+        {/* Lid body — slight overhang, spans hinge (z=0) to front edge */}
+        <RoundedBox
+          args={[W + 0.07, LID_T, D + 0.05]}
+          radius={0.07}
+          smoothness={6}
+          position={[0, LID_T / 2, D / 2]}
+          castShadow
+        >
+          <meshPhysicalMaterial {...LACQUER} />
+        </RoundedBox>
+
+        {/* Interior of lid — garnet velvet underside */}
+        <mesh position={[0, -0.002, D / 2]} rotation={[Math.PI / 2, 0, 0]}>
+          <planeGeometry args={[W - 0.24, D - 0.24]} />
+          <meshPhysicalMaterial {...VELVET} />
         </mesh>
 
-        {/* Interior of lid (garnet velvet underside) */}
-        <mesh position={[0, 0, D / 2]} rotation={[Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[W - 0.1, D - 0.1]} />
-          <meshStandardMaterial color="#45101a" roughness={0.97} metalness={0.0} />
-        </mesh>
+        {/* Maison plaque — engraved gold cartouche on the lid */}
+        <RoundedBox
+          args={[0.95, 0.03, 0.3]}
+          radius={0.012}
+          smoothness={4}
+          position={[0, LID_T + 0.005, D / 2]}
+        >
+          <meshStandardMaterial {...GOLD} roughness={0.1} />
+        </RoundedBox>
 
-        {/* Gold trim — lid front edge hairline */}
-        <GoldEdge args={[W + 0.02, 0.03, 0.024]} position={[0, LID_T, D]} />
-
-        {/* Fermoir — champagne clasp at the front centre */}
-        <GoldEdge
-          args={[0.32, LID_T + 0.1, 0.05]}
-          position={[0, LID_T / 2 - 0.02, D + 0.02]}
-        />
+        {/* Fermoir — champagne clasp on the lid front */}
+        <RoundedBox
+          args={[0.3, 0.17, 0.06]}
+          radius={0.02}
+          smoothness={4}
+          position={[0, 0.03, D + 0.02]}
+        >
+          <meshStandardMaterial {...GOLD} />
+        </RoundedBox>
       </group>
-
-      {/* Ground shadow receiver — soft, light-theme weight */}
-      <mesh
-        receiveShadow
-        rotation={[-Math.PI / 2, 0, 0]}
-        position={[0, -H / 2 - 0.001, 0]}
-      >
-        <planeGeometry args={[14, 14]} />
-        <shadowMaterial transparent opacity={0.2} />
-      </mesh>
     </group>
   );
 }
