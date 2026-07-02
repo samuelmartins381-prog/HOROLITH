@@ -62,7 +62,14 @@ html {
 }
 
 body {
-  background-color: var(--porcelain);
+  /* Iridescent pastel wash — mint / sky / rose / champagne corners */
+  background:
+    radial-gradient(90% 70% at 12% 8%, rgba(216, 239, 227, 0.6) 0%, transparent 60%),
+    radial-gradient(80% 60% at 90% 15%, rgba(211, 229, 242, 0.55) 0%, transparent 62%),
+    radial-gradient(85% 65% at 85% 92%, rgba(247, 221, 226, 0.45) 0%, transparent 60%),
+    radial-gradient(70% 60% at 8% 90%, rgba(243, 230, 204, 0.55) 0%, transparent 60%),
+    var(--porcelain);
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-body);
   font-size: var(--text-base);

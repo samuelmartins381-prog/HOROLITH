@@ -13,7 +13,7 @@ const SHOWCASE_CARD = SEED_CARDS.find((c) => c.name === "Astrum Suprema")!;
 export default function HomePage() {
   return (
     <main id="main-content" className={styles.page} aria-label="Horolith — accueil">
-      <GuillocheBg />
+      <FloatingCards />
 
       <div className={styles.layout}>
         {/* ── Brand column ──────────────────────────── */}
@@ -62,47 +62,27 @@ export default function HomePage() {
   );
 }
 
-function GuillocheBg() {
+/* Scattered card backs floating behind the hero — the airy splash
+   composition of the reference. Static: no looping motion at rest. */
+const FLOATS: Array<React.CSSProperties> = [
+  { top: "7%", left: "5%", width: 104, transform: "rotate(-13deg)", opacity: 0.7 },
+  { top: "10%", right: "7%", width: 126, transform: "rotate(11deg)", opacity: 0.8 },
+  { bottom: "13%", left: "9%", width: 116, transform: "rotate(7deg)", opacity: 0.75 },
+  { bottom: "9%", right: "13%", width: 92, transform: "rotate(-9deg)", opacity: 0.6 },
+  { top: "44%", left: "-30px", width: 132, transform: "rotate(17deg)", opacity: 0.5 },
+  { top: "58%", right: "-24px", width: 110, transform: "rotate(-15deg)", opacity: 0.55 },
+];
+
+function FloatingCards() {
   return (
-    <div aria-hidden="true" className={styles.guillocheBg}>
-      <svg
-        width="100%"
-        height="100%"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        <defs>
-          <pattern
-            id="gp"
-            x="0"
-            y="0"
-            width="24"
-            height="24"
-            patternUnits="userSpaceOnUse"
-            patternTransform="rotate(45)"
-          >
-            <rect
-              x="1"
-              y="1"
-              width="22"
-              height="22"
-              fill="none"
-              stroke="#e8e6e1"
-              strokeWidth="0.4"
-            />
-            <rect
-              x="5"
-              y="5"
-              width="14"
-              height="14"
-              fill="none"
-              stroke="#e8e6e1"
-              strokeWidth="0.22"
-            />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#gp)" />
-      </svg>
+    <div aria-hidden="true" className={styles.floats}>
+      {FLOATS.map((style, i) => (
+        <div key={i} className={styles.floatCard} style={style}>
+          <span className={styles.floatRule} />
+          <span className={styles.floatWordmark}>Horolith</span>
+          <span className={styles.floatRule} />
+        </div>
+      ))}
     </div>
   );
 }

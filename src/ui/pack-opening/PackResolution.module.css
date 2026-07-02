@@ -5,9 +5,13 @@
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  padding: 32px 24px 40px;
+  padding: 32px 28px 36px;
   width: 100%;
   max-width: 700px;
+  background: rgba(255, 255, 255, 0.78);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(8px);
   animation: fadeUp 400ms var(--ease-reveal) both;
   animation-delay: 200ms;
 }
@@ -140,26 +144,28 @@
 }
 
 .btnPrimary {
-  padding: 11px 40px;
-  border: 1px solid rgba(200, 165, 90, 0.4);
-  border-radius: 2px;
-  background: transparent;
+  padding: 14px 42px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--pill-champagne);
+  box-shadow: var(--shadow-pill);
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--or-rose);
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(28, 26, 23, 0.15);
   cursor: pointer;
   transition:
-    border-color var(--duration-fast) var(--ease-out-mechanical),
-    background var(--duration-fast) var(--ease-out-mechanical);
-  min-width: 220px;
+    transform var(--duration-fast) var(--ease-out-mechanical),
+    filter var(--duration-fast) var(--ease-out-mechanical);
+  min-width: 240px;
   text-align: center;
 }
 
 .btnPrimary:hover {
-  border-color: var(--or-rose);
-  background: rgba(200, 165, 90, 0.07);
+  transform: translateY(-2px);
+  filter: brightness(1.04);
 }
 
 .btnSecondary {
@@ -167,14 +173,20 @@
   font-size: 9px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(28, 26, 23, 0.3);
+  color: rgba(28, 26, 23, 0.5);
   text-decoration: none;
-  padding: 8px 16px;
-  transition: color var(--duration-fast);
+  padding: 11px 22px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-pill);
+  transition:
+    color var(--duration-fast),
+    transform var(--duration-fast) var(--ease-out-mechanical);
 }
 
 .btnSecondary:hover {
-  color: rgba(28, 26, 23, 0.6);
+  color: var(--ink);
+  transform: translateY(-2px);
 }
 
 @media (prefers-reduced-motion: reduce) {

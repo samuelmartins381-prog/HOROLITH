@@ -36,6 +36,19 @@
   --surface-2: #e8e2d5;
   --surface-3: #ddd5c8;
 
+  /* ─── Ambiances pastel (référence TCG Pocket) ────────────────
+     Airy iridescent washes for backgrounds — never for text.     */
+  --pastel-mint: #d8efe3;
+  --pastel-sky: #d3e5f2;
+  --pastel-lavender: #e4ddf0;
+  --pastel-rose: #f7dde2;
+  --pastel-champagne: #f3e6cc;
+
+  /* Solid pill fills (buttons) */
+  --pill-champagne: linear-gradient(180deg, #d8b877 0%, #c39a4e 100%);
+  --pill-mint: linear-gradient(180deg, #8fd0ae 0%, #6fbd94 100%);
+  --pill-horizon: linear-gradient(180deg, #a3c6da 0%, #82abc4 100%);
+
   /* ─── Tier accent colors — Les 6 Niveaux de Création ─────────
      Values chosen for legibility on light ivory backgrounds.     */
   --tier-ebauche: #8b8880;
@@ -131,6 +144,8 @@
   --radius-md: 4px;
   --radius-card: 8px;
   --radius-lg: 12px;
+  --radius-panel: 20px;
+  --radius-pill: 999px;
 
   /* ─── Motion ──────────────────────────────────────────────────── */
   --beat: 250ms;
@@ -160,6 +175,8 @@
     0 8px 32px rgba(28, 26, 23, 0.14), 0 2px 8px rgba(200, 165, 90, 0.18);
   --shadow-or-rose: 0 0 24px rgba(200, 165, 90, 0.22);
   --shadow-lume: 0 0 40px rgba(142, 196, 176, 0.3);
+  --shadow-soft: 0 10px 30px rgba(28, 26, 23, 0.08), 0 2px 8px rgba(28, 26, 23, 0.05);
+  --shadow-pill: 0 4px 14px rgba(28, 26, 23, 0.12), 0 1px 3px rgba(28, 26, 23, 0.08);
 
   /* ─── Z-index ─────────────────────────────────────────────────── */
   --z-base: 0;

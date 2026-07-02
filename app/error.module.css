@@ -5,13 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--porcelain);
-  background-image: repeating-conic-gradient(
-    rgba(28, 26, 23, 0.007) 0deg,
-    transparent 0.4deg,
-    transparent 2deg,
-    rgba(28, 26, 23, 0.007) 2.4deg
-  );
+  /* transparent — the body's pastel wash shows through */
   padding: 2rem;
 }
 
