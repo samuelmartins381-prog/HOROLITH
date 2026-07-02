@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useRef } from "react";
 import type { Card } from "@/src/game/canon/types";
 import { RARITIES } from "@/src/game/canon/rarities";
 import WatchFace from "./WatchFace";
+import { useCardTilt } from "./useCardTilt";
 import {
   TIER_COLORS,
   TIER_GLOW,
@@ -20,8 +21,8 @@ interface HorolCardProps {
 
 export default function HorolCard({ card, className }: HorolCardProps) {
   const sceneRef = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [foil, setFoil] = useState({ x: 50, y: 50 });
+  const cardRef = useRef<HTMLElement>(null);
+  const { onPointerMove, onPointerLeave } = useCardTilt(sceneRef, cardRef);
 
   const rarity = RARITIES[card.rarity];
   const tierColor = TIER_COLORS[card.rarity];
@@ -30,20 +31,6 @@ export default function HorolCard({ card, className }: HorolCardProps) {
   const tierName = TIER_NAMES[card.rarity];
   const houseName = HOUSE_NAMES[card.house];
 
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = sceneRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const dx = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
-    const dy = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
-    setTilt({ x: -dy * 11, y: dx * 11 });
-    setFoil({ x: 50 + dx * 28, y: 50 + dy * 28 });
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setTilt({ x: 0, y: 0 });
-    setFoil({ x: 50, y: 50 });
-  }, []);
-
   const archDisplay =
     card.architecture.charAt(0).toUpperCase() + card.architecture.slice(1);
 
@@ -51,20 +38,17 @@ export default function HorolCard({ card, className }: HorolCardProps) {
     <div
       ref={sceneRef}
       className={`${styles.scene} ${className ?? ""}`}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      onPointerMove={onPointerMove}
+      onPointerLeave={onPointerLeave}
     >
       <article
+        ref={cardRef}
         className={styles.card}
         style={
           {
-            "--tilt-x": `${tilt.x}deg`,
-            "--tilt-y": `${tilt.y}deg`,
             "--tier-color": tierColor,
             "--tier-glow": tierGlow,
             "--house-color": houseColor,
-            "--foil-x": `${foil.x}%`,
-            "--foil-y": `${foil.y}%`,
           } as React.CSSProperties
         }
         aria-label={`${card.name} — ${houseName}, ${tierName}`}
@@ -122,6 +106,9 @@ export default function HorolCard({ card, className }: HorolCardProps) {
           </span>
           <span className={styles.project}>{card.project}</span>
         </footer>
+
+        {/* ── Sapphire glass glare — every tier has glass ── */}
+        <div className={styles.glare} aria-hidden="true" />
 
         {/* ── Foil shimmer overlay (Maîtrise+) ──────── */}
         {rarity.foilActive && <div className={styles.foilOverlay} aria-hidden="true" />}

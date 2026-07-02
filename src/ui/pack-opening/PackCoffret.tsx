@@ -13,10 +13,16 @@ const CoffretScene = dynamic(() => import("@/src/render/coffret/CoffretScene"), 
 
 interface PackCoffretProps {
   isOpen: boolean;
+  /** Rarity tell — colour of the light escaping the coffret */
+  leakColor?: string;
   onAnimationComplete?: () => void;
 }
 
-export default function PackCoffret({ isOpen, onAnimationComplete }: PackCoffretProps) {
+export default function PackCoffret({
+  isOpen,
+  leakColor,
+  onAnimationComplete,
+}: PackCoffretProps) {
   const [use3D, setUse3D] = useState(false);
   const lidRef = useRef<HTMLDivElement>(null);
   const completeCbRef = useRef(onAnimationComplete);
@@ -39,6 +45,7 @@ export default function PackCoffret({ isOpen, onAnimationComplete }: PackCoffret
         rotateX: -118,
         duration: 0.7,
         ease: "power3.out",
+        delay: 0.45,
         onComplete: () => completeCbRef.current?.(),
       });
     } else {
@@ -51,6 +58,7 @@ export default function PackCoffret({ isOpen, onAnimationComplete }: PackCoffret
       <div aria-hidden="true" style={{ lineHeight: 0 }}>
         <CoffretScene
           isOpen={isOpen}
+          leakColor={leakColor}
           onAnimationComplete={() => completeCbRef.current?.()}
         />
       </div>
@@ -60,7 +68,12 @@ export default function PackCoffret({ isOpen, onAnimationComplete }: PackCoffret
   // CSS 2D fallback — identical to pre-Phase-5 rendering
   return (
     <div className={styles.scene} aria-hidden="true">
-      <div className={styles.box}>
+      <div
+        className={styles.box}
+        style={
+          isOpen && leakColor ? { boxShadow: `0 0 64px 8px ${leakColor}59` } : undefined
+        }
+      >
         <div className={styles.interior}>
           <span className={styles.interiorMark}>HOROLITH</span>
           <div className={styles.watchSlots}>

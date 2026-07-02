@@ -4,7 +4,7 @@
   perspective: 900px;
   perspective-origin: 50% 50%;
   display: inline-block;
-  cursor: none;
+  touch-action: pan-y;
 }
 
 /* ─── Card ───────────────────────────────────────────────────── */
@@ -32,9 +32,9 @@
     0 1px 4px rgba(28, 26, 23, 0.07),
     0 0 40px var(--tier-glow, rgba(200, 165, 90, 0.12));
 
-  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg))
+    scale(var(--card-scale, 1));
   transform-style: preserve-3d;
-  transition: transform 80ms linear;
   will-change: transform;
 
   display: flex;
@@ -48,7 +48,8 @@
     transform: none !important;
     transition: none;
   }
-  .foilOverlay {
+  .foilOverlay,
+  .glare {
     display: none;
   }
 }
@@ -245,6 +246,25 @@
   color: rgba(200, 165, 90, 0.45);
   letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+/* ─── Sapphire glass glare (all tiers) ───────────────────────
+   Physical: specular reflection on the sapphire crystal. Follows
+   the pointer via --glare-x/y, fades in/out via --glare-o.       */
+
+.glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 10px;
+  background: radial-gradient(
+    ellipse 55% 42% at var(--glare-x, 50%) var(--glare-y, 35%),
+    rgba(255, 255, 255, 0.34) 0%,
+    rgba(255, 255, 255, 0.1) 45%,
+    transparent 72%
+  );
+  opacity: var(--glare-o, 0);
+  z-index: 6;
 }
 
 /* ─── Foil shimmer (Maîtrise+) ───────────────────────────────── */

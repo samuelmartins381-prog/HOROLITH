@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { usePackStore } from "@/src/state/pack-store";
 import { useCollectionStore } from "@/src/state/collection-store";
@@ -17,6 +17,7 @@ import {
   playCardFlip,
   playRarityReveal,
 } from "@/src/audio/pack-audio";
+import { TIER_LEAK } from "@/src/render/card/card-constants";
 import type { CardResult } from "@/src/game/gacha/engine";
 import type { Card } from "@/src/game/canon/types";
 import type { RarityId } from "@/src/game/canon/types";
@@ -307,6 +308,15 @@ export default function PackOpeningScene() {
     accrueDailyPacks();
   }, [clearTimer, accrueDailyPacks]);
 
+  // Rarity tell — the best card in the pack colours the light leak
+  const tellColor = useMemo(() => {
+    if (results.length === 0) return undefined;
+    const best = results.reduce((prev, curr) =>
+      RARITY_ORDER.indexOf(curr.rarity) > RARITY_ORDER.indexOf(prev.rarity) ? curr : prev
+    );
+    return TIER_LEAK[best.rarity as RarityId];
+  }, [results]);
+
   const showCoffret = phase === "idle" || phase === "unsealing";
   const showCards = phase === "revealing" || phase === "resolved";
   const showSkip = phase === "unsealing" || phase === "revealing";
@@ -344,12 +354,18 @@ export default function PackOpeningScene() {
             className={
               phase === "unsealing" ? styles.unsealingCoffret : styles.coffretArea
             }
+            style={
+              phase === "unsealing" && tellColor
+                ? ({ "--tell": tellColor } as React.CSSProperties)
+                : undefined
+            }
           >
             {phase === "idle" && (
               <span className={styles.coffretLabel}>Coffret d&rsquo;ouverture</span>
             )}
             <PackCoffret
               isOpen={phase === "unsealing"}
+              leakColor={tellColor}
               onAnimationComplete={handleCoffretComplete}
             />
             {phase === "idle" && apiError && (

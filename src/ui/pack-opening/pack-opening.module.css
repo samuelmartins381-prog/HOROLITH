@@ -238,13 +238,18 @@
   animation: pulseAura 1.5s ease-in-out infinite;
 }
 
+/* Aura tinted by the rarity tell (--tell, set inline) */
 @keyframes pulseAura {
   0%,
   100% {
-    filter: drop-shadow(0 0 20px rgba(200, 165, 90, 0.1));
+    filter: drop-shadow(
+      0 0 20px color-mix(in srgb, var(--tell, #c8a55a) 18%, transparent)
+    );
   }
   50% {
-    filter: drop-shadow(0 0 40px rgba(200, 165, 90, 0.28));
+    filter: drop-shadow(
+      0 0 44px color-mix(in srgb, var(--tell, #c8a55a) 48%, transparent)
+    );
   }
 }
 
